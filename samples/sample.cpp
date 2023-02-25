@@ -1,6 +1,10 @@
 #include "polynomial.h"
 #include <locale.h>
 
+#ifdef _WIN64 or _WIN32
+#include <windows.h>
+#endif
+
 void polynomialEnter()
 {
 	size_t degree, size;
@@ -20,6 +24,7 @@ void polynomialEnter()
 }
 
 enum class Choice { A_plus_B = 1, A_minus_B, B_minus_A, A_mult_B, A_mult_Const, B_mult_Const, Quit1 = 1, Quit2 = 7 };
+enum Colors { Black = 0, Blue = 1, Green, LightBlue, Red, White = 7, UltraWhite = 15 };
 
 int main()
 {
@@ -28,11 +33,18 @@ int main()
 	cout << "Правила пользования: " << endl;
 	cout << "1) Сначала вы должны ввести количество мономов в полиноме" << endl;
 	cout << "2) Дальше для каждого монома вводится его степень" << endl;
-	cout << "	!!!Заметьте: " << endl;
-	cout << "	Количество сотен отвечает за степень у 'x'" << endl;
-	cout << "	Количество десятков - степень 'y'" << endl;
-	cout << "	Количество единиц - степень z" << endl;
-	cout << "	Максимальная степень - 999!!!" << endl;
+#ifdef _WIN64 or _WIN32
+	HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(console_color, Red);
+#endif
+	cout << "   !!!Заметьте: " << endl;
+	cout << "   Количество сотен отвечает за степень у 'x'" << endl;
+	cout << "   Количество десятков - степень 'y'" << endl;
+	cout << "   Количество единиц - степень z" << endl;
+	cout << "   Максимальная степень - 999!!!" << endl;
+#ifdef _WIN64 or _WIN32
+	SetConsoleTextAttribute(console_color, White);
+#endif
 	cout << "3) Введите коэффициент монома" << endl;
 	cout << "4) Повторяйте шаги 2) и 3) до тех пор, пока не появится меню выбора операций" << endl;
 	cout << "5) Выберите операцию над мономами" << endl;
@@ -43,7 +55,7 @@ int main()
 	Choice temp;
 	try
 	{
-		while (1)
+		while (quit1)
 		{
 			quit2 = 1;
 			cout << "Введите первый полином(A)" << endl;

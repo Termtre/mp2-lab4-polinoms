@@ -32,7 +32,7 @@ public:
 		tsize++;
 	}
 
-	List(T* array, size_t arraySize) // it's correct
+	List(T* array, int arraySize) // it's correct
 	{
 		for (int i = arraySize - 1; i >= 0; i--)
 		{
@@ -99,10 +99,9 @@ public:
 
 			if (tsize == 1) temp = head->next;
 
-			else  temp = getNode(tsize);
+			else  temp = getNode(tsize - 1);
 
-			temp = new Node<T>(var);
-			tsize++;
+			temp->next = new Node<T>(var);
 			// С использованием getNode
 			/*Node<T>* temp = head->next;
 
@@ -111,6 +110,8 @@ public:
 
 			temp->next = new Node<T>(var);*/
 		}
+
+		tsize++;
 	}
 
 	void push_front(T var)
@@ -394,46 +395,43 @@ public:
 	{
 		List<T> other(*this);
 
-		int middle = (first + last) / 2;
-
-		for (size_t i = first, j = middle + 1; (i + j) <= last;)
-		{
-			//if ()
-		}
-	}
-
-	/*void merge(int first, int last) // without []
-	{
-		List<T> other(*this);
-
-		int middle = (first + last) / 2;
 		int left = first;
+		int middle = (first + last) / 2;
 		int right = middle + 1;
 
-		for (size_t i = first; i <= last; i++)
+		Node<T>* l = getNode(left);
+		Node<T>* r = getNode(right);
+		Node<T>* o = other.getNode(0);
+
+		for (size_t i = left; i <= last; i++, o = o->next)
 		{
-			if ((left <= middle) && ((right > last) || ((*this)[left] < (*this)[right])))
+			if ((left <= middle) && ((right > last) || (l->data < r->data)))
 			{
-				other[i] = (*this)[left];
+				o->data = l->data;
 				left++;
+				l = l->next;
 			}
 
 			else
 			{
-				other[i] = (*this)[right];
+				o->data = r->data;
 				right++;
+				r = r->next;
 			}
 		}
 
-		for (size_t i = first; i <= last; i++)
+		o = getNode(first);
+		l = getNode(first);
+
+		for (size_t i = first; i <= last; i++, o = o->next, l = l->next)
 		{
-			(*this)[i] = other[i];
+			l->data = o->data;
 		}
-	}*/
+	}
 
 	void sort(int first, int last)
 	{
-		if ((first < 0) || (last >= this->tsize)) throw "\"List::sort\": Wrong range";
+		//if ((first < 0) || (last > this->tsize)) throw "\"List::sort\": Wrong range";
 
 		int middle = (first + last) / 2;
 

@@ -53,7 +53,7 @@ private:
 	List<Monom> data;
 public:
 	Polynomial();									// Конструктор по умолчанию		
-
+													
 	Polynomial(const List<Monom>&);					// Конструктор инициализации списком
 
 	Polynomial(Monom*, size_t);						// Конструктор инициализации массивом мономов

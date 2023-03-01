@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\include\polynomial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\list.cpp" />
     <ClCompile Include="..\..\src\polynomial.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

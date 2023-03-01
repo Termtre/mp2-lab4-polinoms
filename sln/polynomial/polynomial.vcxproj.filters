@@ -20,5 +20,8 @@
     <ClCompile Include="..\..\src\polynomial.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\list.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

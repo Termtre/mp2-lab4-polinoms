@@ -76,7 +76,7 @@ Monom Monom::operator *(const Monom& other)
 	return third;
 }
 
-Monom& Monom::operator *=(double var)
+Monom& Monom::operator *=(double var) // ????
 {
 	this->coef *= var;
 
@@ -97,32 +97,38 @@ Monom Monom::operator /(const Monom& other)
 
 bool Monom::operator <(const Monom& other) const
 {
-	return this->degree < other.degree;
+	if (this->degree != other.degree) return this->degree < other.degree;
+	return this->coef < other.coef;
 }
 
 bool Monom::operator <=(const Monom& other) const
 {
-	return this->degree <= other.degree;
+	if (this->degree != other.degree) return this->degree <= other.degree;
+	return this->coef <= other.coef;
 }
 
 bool Monom::operator >(const Monom& other) const
 {
-	return this->degree > other.degree;
+	if (this->degree != other.degree) return this->degree > other.degree;
+	return this->coef > other.coef;
 }
 
 bool Monom::operator >=(const Monom& other) const
 {
-	return this->degree >= other.degree;
+	if (this->degree != other.degree) return this->degree >= other.degree;
+	return this->coef >= other.coef;
 }
 
-bool Monom::operator ==(const Monom& other) const
+bool Monom::operator ==(const Monom& other) const // ????
 {
-	return this->degree == other.degree;
+	if (this->degree != other.degree) return false;
+	return this->coef == other.coef;
 }
 
-bool Monom::operator !=(const Monom& other) const
+bool Monom::operator !=(const Monom& other) const // ????
 {
-	return this->degree != other.degree;
+	if (this->degree != other.degree) return this->degree < other.degree;
+	return this->coef < other.coef;
 }
 
 void Monom::setMonom(int _degree, double _coef)
@@ -133,124 +139,34 @@ void Monom::setMonom(int _degree, double _coef)
 
 // Polynomial
 Polynomial::Polynomial()
-{
-	this->data.push_front(Monom());
-}
+{}
 
 Polynomial::Polynomial(const List<Monom>& other)
-{
-	if (other.isEmpty()) this->data.push_front(Monom());
-
-	else this->data = other;
-}
+{}
 
 Polynomial::Polynomial(Monom* array, size_t arraySize): data(array, arraySize) // Нулевой массив???/ Если да, добавить нулевой моном
 {}
 
 Polynomial::Polynomial(const Monom& monom)
-{
-	this->data.push_front(monom);
-}
+{}
 
 Polynomial::Polynomial(const Polynomial& other)
-{
-	this->data = other.data;
-}
+{}
 
 const Polynomial& Polynomial::operator =(Polynomial& other)
-{
-	if (this->data != other.data) this->data = other.data;
-
-	return *this;
-}
+{}
 
 Polynomial Polynomial::operator +(const Polynomial& other) const
-{
-	Polynomial third(*this);
-
-	third.data.merge(other.data);
-	third.data.sort(0, third.data.size() - 1);
-
-	for (size_t i = 0; i < third.data.size(); i++)
-	{
-		//if (((i + 1) != third.data.size()) && (third.data[i] == third.data[i + 1]))
-		//{
-			//third.data[i] += third.data[i + 1];
-			//third.data.erase(i + 1);
-		//}
-
-		//if (fabs(third.data[i].coef) < static_cast<double>(1e-15))
-		//{
-		//	third.data.erase(i);
-		//	i--;
-		//}
-	}
-
-	if (third.data.isEmpty()) third.data.push_front(Monom());
-
-	return third;
-}
+{}
 
 Polynomial& Polynomial::operator +=(const Polynomial& other)
-{
-	this->data.merge(other.data);
-	this->data.sort(0, this->data.size() - 1);
-
-	for (size_t i = 0; i < this->data.size(); i++)
-	{
-		//if (((i + 1) != this->data.size()) && (this->data[i] == this->data[i + 1]))
-		//{
-			//this->data[i] += this->data[i + 1];
-			this->data.erase(i + 1);
-		//}
-
-		//if (fabs(this->data[i].coef) < static_cast<double>(1e-15))
-		//{
-			//this->data.erase(i);
-			//i--;
-		//}
-	}
-
-	if (this->data.isEmpty()) this->data.push_front(Monom());
-
-	return *this;
-}
+{}
 
 Polynomial& Polynomial::operator *=(double var)
-{
-	for (size_t i = 0; i < this->data.size(); i++)
-	{
-		//this->data[i] *= var;
-
-		//if (fabs(this->data[i].coef) < static_cast<double>(1e-15))
-		//{
-		//	this->data.erase(i);
-		//	i--;
-		//}
-	}
-
-	if (this->data.isEmpty()) this->data.push_front(Monom());
-
-	return *this;
-}
+{}
 
 Polynomial& Polynomial::operator -=(Polynomial& other) // peredelat'
-{
-	Polynomial temp(other);
-	*this += temp *= -1.0;
-
-	return *this;
-}
+{}
 
 void Polynomial::getPolynomial()
-{
-	if (data.isEmpty()) cout << "0" << endl;
-
-	else
-	{
-		for (size_t i = 0; i < data.size(); i++)
-		{
-				//cout << data[i].coef << " " << data[i].degree << endl;
-		}
-	}
-}
+{}

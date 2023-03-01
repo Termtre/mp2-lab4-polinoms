@@ -24,7 +24,8 @@ void polynomialEnter()
 }
 
 enum class Choice { A_plus_B = 1, A_minus_B, B_minus_A, A_mult_B, A_mult_Const, B_mult_Const, Quit1 = 1, Quit2 = 7 };
-enum Colors { Black = 0, Blue = 1, Green, LightBlue, Red, White = 7, UltraWhite = 15 };
+enum Colors { Black = 0, Blue = 1, Green, LightBlue, Red, White = 7, UltraGreen = 10, Coral = 12, UltraWhite = 15 };
+HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
 
 int main()
 {
@@ -34,8 +35,7 @@ int main()
 	cout << "1) Сначала вы должны ввести количество мономов в полиноме" << endl;
 	cout << "2) Дальше для каждого монома вводится его степень" << endl;
 #ifdef _WIN64 or _WIN32
-	HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(console_color, Red);
+	SetConsoleTextAttribute(console_color, Coral);
 #endif
 	cout << "   !!!Заметьте: " << endl;
 	cout << "   Количество сотен отвечает за степень у 'x'" << endl;
@@ -53,9 +53,9 @@ int main()
 
 	size_t choice, quit1 = 1, quit2;
 	Choice temp;
-	try
+	while (quit1)
 	{
-		while (quit1)
+		try
 		{
 			quit2 = 1;
 			cout << "Введите первый полином(A)" << endl;
@@ -87,6 +87,7 @@ int main()
 				case Choice::A_plus_B:
 				{
 					cout << "C = A + B: " << endl;
+					throw "This is wrong. Try again";
 					break;
 				}
 				case Choice::A_minus_B:
@@ -145,10 +146,18 @@ int main()
 				break;
 			}}
 		}
-	}
 
-	catch (const char* msg)
-	{
-		cout << msg << endl;
+		catch (const char* msg)
+		{
+			cout << "______________________________" << endl;
+#ifdef _WIN64 or _WIN32
+			SetConsoleTextAttribute(console_color, Red);
+#endif
+			cout << msg << endl;
+#ifdef _WIN64 or _WIN32
+			SetConsoleTextAttribute(console_color, White);
+#endif
+			cout << "______________________________" << endl;
+		}
 	}
 }

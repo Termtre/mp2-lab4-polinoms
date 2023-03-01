@@ -1,17 +1,30 @@
 #include "list.h"
 
-template <class T>
-List<T>::List() {}// it's correct
+// Node<T>
+
+template<class T>
+Node<T>::Node() : data(T()), next(nullptr) {}
+
+template<class T>
+Node<T>::Node(T var) : data(static_cast<T>(var)), next(nullptr) {}
+
+// List<T>
 
 template <class T>
-List<T>::List(T var) // it's correct
+List<T>::List() : head(new Node<T>()), tail(nullptr), tsize(size_t())
 {
-	head->next = new Node<T>(var);
-	tsize++;
+	head->next = tail;
 }
 
 template <class T>
-List<T>::List(T* array, int arraySize) // it's correct
+List<T>::List(T var) : head(new Node<T>()), tsize(size_t(1))
+{
+	head->next = tail;
+	tail = new Node<T>(var);;
+}
+
+template <class T>
+List<T>::List(T* array, int arraySize) // it's correct ??? нужен?
 {
 	for (int i = arraySize - 1; i >= 0; i--)
 	{
@@ -20,28 +33,34 @@ List<T>::List(T* array, int arraySize) // it's correct
 }
 
 template <class T>
-List<T>::List(const List& other) // it's correct
+List<T>::List(const List& other) : head(new Node<T>()), tsize(other.tsize)// it's correct
 {
-	if (other.isEmpty()) return;
+	if (other.isEmpty())
+	{
+		this->tail = nullptr;
+		this->head->next = this->tail;
+	}
 
 	else if (other.tsize == 1)
 	{
-		this->head->next = new Node<T>(other.head->next->data);
-		this->tsize++;
+		this->head->next = this->tail;
+		this->tail = new Node<T>(other.head->next->data);
 	}
 
 	else
 	{
-		Node<T>* p = this->head;
-		Node<T>* temp = other.head;
+		Node<T>* t = this->head;
+		Node<T>* o = other.head;
 
-		while (temp->next != nullptr)
+		while (o->next != nullptr)
 		{
-			p->next = new Node<T>(temp->next->data);
+			t->next = new Node<T>(o->next->data);
 			this->tsize++;
-			temp = temp->next;
-			p = p->next;
+			o = o->next;
+			t = t->next;
 		}
+
+		tail = o;
 	}
 }
 
@@ -51,14 +70,17 @@ List<T>::~List() // it's maybe correct, require to confirm
 	this->clear();
 	delete head;
 	head = nullptr;
+	tail = nullptr;
 }
 
 template <class T>
 Node<T>* List<T>::getNode(int index)
 {
-	if ((index < 0) || (index > this->tsize)) throw "\"List::getNode\": Wrong index";
+	if ((index < 0) || (index >= this->tsize)) throw "\"List::getNode\": Wrong index";
 
 	if (index == 0) return head->next;
+
+	else if (index == tsize - 1) return tale;
 
 	else
 	{
@@ -74,24 +96,12 @@ Node<T>* List<T>::getNode(int index)
 template <class T>
 void List<T>::push_back(T var) // it's correct
 {
-	if (isEmpty()) head->next = new Node<T>(var);
+	if (isEmpty()) tail = new Node<T>(var);
 
 	else
 	{
-		Node<T>* temp;
-
-		if (tsize == 1) temp = head->next;
-
-		else  temp = getNode(tsize - 1);
-
-		temp->next = new Node<T>(var);
-		// С использованием getNode
-		/*Node<T>* temp = head->next;
-
-		while (temp->next != nullptr)
-			temp = temp->next;
-
-		temp->next = new Node<T>(var);*/
+		tail->next = new Node<T>(var);
+		tail = tale->next;
 	}
 
 	tsize++;
@@ -110,6 +120,8 @@ template <class T>
 void List<T>::insert(size_t index, T var) // it's correct// User must be accurate to use this method
 {
 	if (index == 0) push_front(var);
+
+	else if (index == tsize - 1) push_back(var);
 
 	else
 	{
@@ -147,7 +159,7 @@ void List<T>::insert(size_t index, T var) // it's correct// User must be accurat
 template <class T>
 T List<T>::pop_back() // it's correct
 {
-	if (isEmpty()) throw "\"List::pop\": List is empty";
+	if (isEmpty()) throw "\"List::pop_back\": List is empty";
 
 	else
 	{
@@ -161,6 +173,8 @@ T List<T>::pop_back() // it's correct
 
 		delete temp->next;
 		temp->next = nullptr;
+		tail = temp;
+		tsize--;
 
 		return result;
 	}
@@ -180,7 +194,28 @@ T List<T>::pop_back() // it's correct
 }
 
 template <class T>
-void List<T>::merge(const List& other) // it's correct
+T List<T>::pop_front() // it's correct
+{
+	if (isEmpty()) throw "\"List::pop_front\": List is empty";
+
+	else if (tsize == 1)
+	{
+		T result = tail->data;
+		delete tail;
+		tail = nullptr;
+	}
+
+	else
+	{
+		T result;
+
+
+		return result;
+	}
+}
+
+template <class T>
+void List<T>::merge(const List& other) // it's correct deprecate
 {
 	if (other.isEmpty()) return;
 
@@ -350,7 +385,7 @@ size_t List<T>::size()
 template <class T>
 bool List<T>::isEmpty() const
 {
-	return tsize == 0;
+	return head->next == tail;
 }
 
 template <class T>
@@ -375,7 +410,7 @@ void List<T>::getList() const
 }
 
 template <class T>
-ostream& operator <<(ostream& ostr, List& other)
+ostream& operator <<(ostream& ostr, List<T>& other)
 {
 	Node<T>* temp = other.head;
 

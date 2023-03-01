@@ -4,24 +4,24 @@
 
 using namespace std;
 												
-template <class T>								// Узел списка
+template <class T>									// Узел списка
 struct Node
 {
-	T data = T();
-	Node<T>* next = nullptr;
+	T data;
+	Node<T>* next;
 
-	Node() {}									// Конструктор по умолчанию
+	Node();											// Конструктор по умолчанию
 
-	Node(T var) : data(static_cast<T>(var)) {}	// Конструктор инициализации
+	Node(T);										// Конструктор инициализации
 };
 
 template<class T>
-class List										// Класс односвязный список с фиктивной головой
+class List											// Класс односвязный список с фиктивной головой
 {
 private:
-	Node<T>* head = new Node<T>();
-	//???Node<T>* tale = new Node<T>();
-	size_t tsize = static_cast <size_t>(0);
+	Node<T>* head;
+	Node<T>* tale;
+	size_t tsize;
 public:
 	List();// it's correct							// Конструктор по умолчанию
 
@@ -42,6 +42,8 @@ public:
 	void insert(size_t, T); // it's correct// User must be accurate to use this method // Добавление узла в любое место списка
 
 	T pop_back(); // it's correct					// Получение значения последнего узла списка с последующим удалением
+
+	T pop_front();									// Получение значения первого узла списка с последующим удалением
 
 	void merge(const List&); // it's correct		Deprecate
 

@@ -154,19 +154,29 @@ Polynomial::Polynomial(const Polynomial& other)
 {}
 
 const Polynomial& Polynomial::operator =(Polynomial& other)
-{}
+{
+	return *this;
+}
 
 Polynomial Polynomial::operator +(const Polynomial& other) const
-{}
+{
+	return *this;
+}
 
 Polynomial& Polynomial::operator +=(const Polynomial& other)
-{}
+{
+	return *this;
+}
 
 Polynomial& Polynomial::operator *=(double var)
-{}
+{
+	return *this;
+}
 
 Polynomial& Polynomial::operator -=(Polynomial& other) // peredelat'
-{}
+{
+	return *this;
+}
 
 void Polynomial::getPolynomial()
 {}

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-struct Monom // MB class??
+struct Monom
 {
 	int degree;
 	double coef;

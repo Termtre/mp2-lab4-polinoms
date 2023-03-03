@@ -5,10 +5,8 @@
 using namespace std;
 
 template<class T>
-class Node
+struct Node
 {
-	friend class List;
-
 	T data;
 	Node<T>* next;
 
@@ -82,16 +80,6 @@ public:
 	Node<T>* end()
 	{
 		return tail;
-	}
-
-	Node<T>* getNext(Node<T>* cur)
-	{
-		return cur->next;
-	}
-
-	T& getData(Node<T>* cur)
-	{
-		return cur->data;
 	}
 
 	bool isEmpty()

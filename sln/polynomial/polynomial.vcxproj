@@ -19,11 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\list.h" />
+    <ClInclude Include="..\..\include\list.hpp" />
     <ClInclude Include="..\..\include\polynomial.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\list.cpp" />
     <ClCompile Include="..\..\src\polynomial.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

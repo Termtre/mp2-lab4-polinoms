@@ -4,13 +4,8 @@
 Monom::Monom() : degree(int()), coef(double())
 {}
 
-Monom::Monom(int _degree, double _coef)
-{
-	if (_degree < 0) throw "\"Monom::initialization constructor\": degree can't be less than zero";
-
-	degree = _degree;
-	coef = _coef;
-}
+Monom::Monom(int var, double dvar) : degree(int(var)), coef(double(dvar))
+{}
 
 Monom::Monom(const Monom& other)
 {
@@ -26,109 +21,39 @@ const Monom& Monom::operator =(const Monom& other)
 	return *this;
 }
 
-Monom Monom::operator +(const Monom& other)
-{
-	if (*this != other) throw "\"Monom::operator +\": monoms have diff degrees";
-
-	Monom third(*this);
-
-	third.coef += other.coef;
-
-	return third;
-}
-
-Monom& Monom::operator +=(const Monom& other)
-{
-	if (*this != other) throw "\"Monom::operator +\": monoms have diff degrees";
-
-	this->coef += other.coef;
-
-	return *this;
-}
-
-Monom Monom::operator -(const Monom& other)
-{
-	if (*this != other) throw "\"Monom operator -\": monoms have diff degrees";
-
-	Monom third(*this);
-
-	third.coef -= other.coef;
-
-	return third;
-}
-
-Monom& Monom::operator -=(const Monom& other)
-{
-	if (*this != other) throw "\"Monom::operator +\": monoms have diff degrees";
-
-	this->coef -= other.coef;
-
-	return *this;
-}
-
-Monom Monom::operator *(const Monom& other)
-{
-	Monom third(*this);
-
-	third.degree += other.degree;
-	third.coef *= other.coef;
-
-	return third;
-}
-
-Monom& Monom::operator *=(double var) // ????
-{
-	this->coef *= var;
-
-	return *this;
-}
-
-Monom Monom::operator /(const Monom& other)
-{
-	if (other.coef == 0) throw "\"Monom::operator /\": Division by zero";
-
-	Monom third(*this);
-
-	third.degree -= other.degree;
-	third.coef /= other.coef;
-
-	return third;
-}
-
 bool Monom::operator <(const Monom& other) const
 {
-	if (this->degree != other.degree) return this->degree < other.degree;
-	return this->coef < other.coef;
+	if (this->degree == other.degree) return this->coef < other.coef;
+	return this->degree < other.degree;
 }
 
 bool Monom::operator <=(const Monom& other) const
 {
-	if (this->degree != other.degree) return this->degree <= other.degree;
-	return this->coef <= other.coef;
+	if (this->degree == other.degree) return this->coef <= other.coef;
+	return this->degree <= other.degree;
 }
 
 bool Monom::operator >(const Monom& other) const
 {
-	if (this->degree != other.degree) return this->degree > other.degree;
-	return this->coef > other.coef;
+	if (this->degree == other.degree) return this->coef > other.coef;
+	return this->degree > other.degree;
 }
 
 bool Monom::operator >=(const Monom& other) const
 {
-	if (this->degree != other.degree) return this->degree >= other.degree;
-	return this->coef >= other.coef;
+	if (this->degree == other.degree) return this->coef >= other.coef;
+	return this->degree >= other.degree;
 }
 
-bool Monom::operator ==(const Monom& other) const // ????
+bool Monom::operator ==(const Monom& other) const
 {
-	if (this->degree != other.degree) return false;
-	return this->coef == other.coef;
+	if (this->degree == other.degree) return this->coef == other.coef;
+	return false;
 }
 
-bool Monom::operator !=(const Monom& other) const // ????
+bool Monom::operator !=(const Monom& other) const
 {
-	if (this->degree != other.degree) return this->degree < other.degree;
-	return this->coef < other.coef;
+	return !(*this == other);
 }
 
 void Monom::setMonom(int _degree, double _coef)
@@ -139,44 +64,28 @@ void Monom::setMonom(int _degree, double _coef)
 
 // Polynomial
 Polynomial::Polynomial()
-{}
-
-Polynomial::Polynomial(const List<Monom>& other)
-{}
-
-Polynomial::Polynomial(Monom* array, size_t arraySize): data(array, arraySize) // Нулевой массив???/ Если да, добавить нулевой моном
-{}
-
-Polynomial::Polynomial(const Monom& monom)
-{}
-
-Polynomial::Polynomial(const Polynomial& other)
-{}
-
-const Polynomial& Polynomial::operator =(Polynomial& other)
 {
-	return *this;
+	this->tData.push_back(Monom());
 }
 
-Polynomial Polynomial::operator +(const Polynomial& other) const
+Polynomial::Polynomial(List<Monom>& other)
 {
-	return *this;
-}
+	if (other.isEmpty()) this->tData.push_back(Monom());
 
-Polynomial& Polynomial::operator +=(const Polynomial& other)
-{
-	return *this;
-}
-
-Polynomial& Polynomial::operator *=(double var)
-{
-	return *this;
-}
-
-Polynomial& Polynomial::operator -=(Polynomial& other) // peredelat'
-{
-	return *this;
+	else this->tData = other;
 }
 
 void Polynomial::getPolynomial()
-{}
+{
+	Node<Monom>* temp = tData.begin();
+	string str;
+
+	for (size_t i = 0; i < tData.size(); i++, temp = temp->next)
+	{
+		if ((i != 0) && temp->data.coef > 0) cout << "+";
+		cout << temp->data.coef;
+		if ((temp->data.degree / 100) % 10) cout << "x^(" << ((temp->data.degree / 100) % 10) << ")";
+		if ((temp->data.degree / 10) % 10) cout << "y^(" << ((temp->data.degree / 10) % 10) << ")";
+		if (temp->data.degree % 10) cout << "z^(" << (temp->data.degree % 10) << ")";
+	}
+}

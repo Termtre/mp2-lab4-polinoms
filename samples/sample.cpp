@@ -31,6 +31,17 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 
+	List<Monom> list;
+	Monom* array = new Monom[10];
+	for (int i = 0; i < 10; i++)
+	{
+		array[i].coef = i * -100 - i * 10 + i - 10;
+		array[i].degree = i * 100 + i * 10 + i + rand() % 10 + 2;
+		list.push_back(array[i]);
+	}
+
+	Polynomial polynomial(list);
+
 	cout << "Правила пользования: " << endl;
 	cout << "1) Сначала вы должны ввести количество мономов в полиноме" << endl;
 	cout << "2) Дальше для каждого монома вводится его степень" << endl;
@@ -93,6 +104,7 @@ int main()
 				case Choice::A_minus_B:
 				{
 					cout << "C = A - B: " << endl;
+					polynomial.getPolynomial();
 					break;
 				}
 				case Choice::B_minus_A:

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "list.h"
+#include "list.hpp"
 
 using namespace std;
 
@@ -20,15 +20,9 @@ struct Monom
 
 	Monom operator +(const Monom&);					// оператор +
 
-	Monom& operator +=(const Monom&);				// оператор +=
-
 	Monom operator -(const Monom&);					// оператор -
 
-	Monom& operator -=(const Monom&);				// оператор -=
-
 	Monom operator *(const Monom&);					// оператор *
-
-	Monom& operator *=(double);						// оператор *=
 
 	Monom operator /(const Monom&);					// оператор /
 
@@ -50,11 +44,11 @@ struct Monom
 class Polynomial
 {
 private:
-	List<Monom> data;
+	List<Monom> tData;
 public:
 	Polynomial();									//  онструктор по умолчанию		
 													
-	Polynomial(const List<Monom>&);					//  онструктор инициализации списком
+	Polynomial(List<Monom>&);					//  онструктор инициализации списком
 
 	Polynomial(Monom*, size_t);						//  онструктор инициализации массивом мономов
 	//Ќулевой массив???

@@ -9,7 +9,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\list.h">
+    <ClInclude Include="..\..\include\list.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\polynomial.h">
@@ -18,9 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\polynomial.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\list.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>

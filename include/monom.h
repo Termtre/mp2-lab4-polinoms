@@ -27,9 +27,9 @@ struct Monom
 
 	Monom operator *(const Monom&) const;			// оператор *
 
-	Monom operator *=(const Monom& other);
+	Monom operator *=(const Monom& other);			// оператор *=
 
-	Monom operator *=(const double&);			// оператор *= на const
+	Monom operator *=(const double&);				// оператор *= на const
 
 	bool operator <(const Monom&) const;			// оператор <
 

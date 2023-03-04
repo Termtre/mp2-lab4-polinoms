@@ -95,6 +95,8 @@ void Polynomial::getPolynomial()
 			temp->data.getMonom();
 		}
 	}
+
+	cout << endl;
 }
 
 const Polynomial& Polynomial::operator =(const Polynomial& other)
@@ -109,6 +111,22 @@ Polynomial Polynomial::operator +(const Polynomial& other) const
 	Polynomial third(*this);
 
 	third.tData.merge(other.tData);
+	third.truePolynomial();
+
+	return third;
+}
+
+Polynomial Polynomial::operator *(const Monom& monom) const
+{
+	Polynomial third(*this);
+	Node<Monom>* temp = third.tData.begin();
+
+	while (temp)
+	{
+		temp->data *= monom;
+		temp = temp->next;
+	}
+
 	third.truePolynomial();
 
 	return third;
@@ -158,15 +176,16 @@ Polynomial Polynomial::operator -(const Polynomial& other) const
 Polynomial Polynomial::operator *(const Polynomial& other) const
 {
 	Polynomial third(*this);
+	Polynomial fourth;
+	Node<Monom>* temp = other.tData.begin();
 
-	Node<Monom>* t = third.tData.begin();
-	Node<Monom>* o = other.tData.begin();
-	while (t)
+	while (temp)
 	{
-		t->data *= o->data;
-		t = t->next;
-		o = o->next;
+		fourth = fourth + third * temp->data;
+		temp = temp->next;
 	}
+
+	third = fourth;
 
 	third.truePolynomial();
 

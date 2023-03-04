@@ -5,8 +5,31 @@
 #include <windows.h>
 #endif
 
-enum Choice { A_plus_B = 1, A_minus_B, B_minus_A, A_mult_B, A_mult_Const, B_mult_Const, Quit1 = 1, Quit2 = 7 };
-enum Colors { Black = 0, Blue = 1, Green, LightBlue, Red, White = 7, UltraGreen = 10, Coral = 12, UltraWhite = 15 };
+enum Choice 
+{ 
+	A_plus_B = 1, 
+	A_minus_B, 
+	B_minus_A, 
+	A_mult_B, 
+	Const_mult, 
+	Quit1 = 1, 
+	Quit2 = 6,
+	A_mult_Const = 1, 
+	B_mult_Const =2,
+};
+
+enum Colors 
+{ 
+	Black = 0,
+	Blue = 1,
+	Green,
+	LightBlue,
+	Red,
+	White = 7,
+	UltraGreen = 10,
+	Coral = 12,
+	UltraWhite = 15
+};
 
 #ifdef _WIN64
 HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -64,16 +87,14 @@ int main()
 
 			while (quit2)
 			{
-				cout << endl;
 				shortLine();
 				cout << "Выберите операцию: " << endl;
 				cout << "1) C = A + B" << endl;
 				cout << "2) C = A - B" << endl;
 				cout << "3) C = B - A" << endl;
 				cout << "4) C = A * B" << endl;
-				cout << "5) C = A * const" << endl;
-				cout << "6) C = B * const" << endl;
-				cout << "7) Выйти из меню выбора операций" << endl;
+				cout << "5) Polynomial * const" << endl;
+				cout << "6) Выйти из меню выбора операций" << endl;
 				cout << "Ваш выбор: ";
 				cin >> choice;
 				shortLine();
@@ -84,51 +105,84 @@ int main()
 
 				cout << "Полином А: ";
 				A.getPolynomial();
-				cout << endl << "Полином B: ";
+				cout << "Полином B: ";
 				B.getPolynomial();
 
 				switch (choice) {
 				case Choice::A_plus_B:
 				{
-					cout << endl << "C = A + B: ";
+					cout << "C = A + B: ";
 					(A + B).getPolynomial();
 					break;
 				}
 				case Choice::A_minus_B:
 				{
-					cout << endl << "C = A - B: ";
+					cout << "C = A - B: ";
 					(A - B).getPolynomial();
-					cout << endl;
 					break;
 				}
 				case Choice::B_minus_A:
 				{
-					cout << endl << "C = B - A: ";
+					cout << "C = B - A: ";
 					(B - A).getPolynomial();
-					cout << endl;
 					break;
 				}
 				case Choice::A_mult_B:
 				{
-					cout << endl << "C = A * B: ";
+					cout << "C = A * B: ";
 					(A * B).getPolynomial();
-					cout << endl;
 					break;
 				}
-				case Choice::A_mult_Const:
+				case Choice::Const_mult:
 				{
-					cout << endl << "C = A * const: ";
-					(A * B).getPolynomial();
-					cout << endl;
+#ifdef _WIN64
+					SetConsoleTextAttribute(console_color, White);
+#endif
+					double var;
+
+					cout << "Введите константу: ";
+					cin >> var;
+
+					cout << "Выберите операцию: " << endl;
+					cout << "1) C = A * const" << endl;
+					cout << "2) C = B * const" << endl;
+					cout << "3) Повторить попытку" << endl;
+					cout << "Ваш выбор: ";
+					cin >> choice;
+
+					shortLine();
+
+#ifdef _WIN64
+					SetConsoleTextAttribute(console_color, Green);
+#endif
+
+					switch (choice) {
+					case Choice::A_mult_Const:
+					{
+						cout << "C = A * const: ";
+						(A * var).getPolynomial();
+						break;
+					}
+
+					case Choice::B_mult_Const:
+					{
+						cout << "C = B * const: ";
+						(A * var).getPolynomial();
+						break;
+					}
+
+					default:
+					{
+						break;
+					}}
+					
+#ifdef _WIN64
+					SetConsoleTextAttribute(console_color, White);
+#endif
+
 					break;
 				}
-				case Choice::B_mult_Const:
-				{
-					cout << endl << "C = B * const: ";
-					(A * B).getPolynomial();
-					cout << endl;
-					break;
-				}
+
 				case Choice::Quit2:
 				{
 					quit2 = 0;
@@ -136,7 +190,7 @@ int main()
 				}
 				default:
 				{
-					cout << endl << "Повторите попытку" << endl;
+					cout << "Повторите попытку" << endl;
 					break;
 				}}
 
@@ -145,7 +199,6 @@ int main()
 #endif
 			}
 
-			cout << endl;
 			shortLine();
 			cout << "Хотите выйти из программы?" << endl;
 			cout << "1) Выйти" << endl;
@@ -171,6 +224,7 @@ int main()
 #ifdef _WIN64
 			SetConsoleTextAttribute(console_color, White);
 #endif
+			cout << endl;
 			shortLine();
 #ifdef _WIN64
 			SetConsoleTextAttribute(console_color, Red);

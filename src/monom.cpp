@@ -51,7 +51,19 @@ Monom Monom::operator -(const Monom& other) const
 
 Monom Monom::operator *(const Monom& other) const
 {
-	if ((this->degree + other.degree) > 9) throw "\"Monom::operator*\": max monom degree is 9";
+	int x, y, z, xo, yo, zo;
+
+	x = (this->degree / 100) % 10;
+	y = (this->degree / 10) % 10;
+	z = this->degree % 10;
+	xo = (other.degree / 100) % 10;
+	yo = (other.degree / 10) % 10;
+	zo = other.degree % 10;
+
+	if ((x + xo) > 9 ||
+		(y + yo) > 9 ||
+		(z + zo) > 9) throw "\"Monom::operator*\": max monom degree by variable is 9";
+
 	Monom third(*this);
 	third.degree += other.degree;
 	third.coef *= other.coef;
@@ -60,7 +72,19 @@ Monom Monom::operator *(const Monom& other) const
 
 Monom Monom::operator *=(const Monom& other)
 {
-	if ((this->degree + other.degree) > 9) throw "\"Monom::operator*\": max monom degree is 9";
+	int x, y, z, xo, yo, zo;
+
+	x = (this->degree / 100) % 10;
+	y = (this->degree / 10) % 10;
+	z = this->degree % 10;
+	xo = (other.degree / 100) % 10;
+	yo = (other.degree / 10) % 10;
+	zo = other.degree % 10;
+
+	if ((x + xo) > 9 ||
+		(y + yo) > 9 ||
+		(z + zo) > 9) throw "\"Monom::operator*\": max monom degree by variable is 9";
+
 	this->degree += other.degree;
 	this->coef *= other.coef;
 	return *this;
@@ -121,7 +145,7 @@ void Monom::getMonom()
 	y = (this->degree / 10) % 10;
 	z = this->degree % 10;
 
-	cout << this->coef;
+	if (coef != 1.0) cout << this->coef;
 
 	if (x)
 	{

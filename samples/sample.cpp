@@ -1,129 +1,132 @@
-#include "polynomial.h"
+ï»¿#include "polynomial.h"
 #include <locale.h>
 
-#ifdef _WIN64 or _WIN32
+#ifdef _WIN64
 #include <windows.h>
 #endif
 
-void polynomialEnter()
+enum Choice { A_plus_B = 1, A_minus_B, B_minus_A, A_mult_B, A_mult_Const, B_mult_Const, Quit1 = 1, Quit2 = 7 };
+enum Colors { Black = 0, Blue = 1, Green, LightBlue, Red, White = 7, UltraGreen = 10, Coral = 12, UltraWhite = 15 };
+
+#ifdef _WIN64
+HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+#endif
+
+void shortLine()
 {
-	size_t degree, size;
-	double coef;
-
-	cout << "Ââåäèòå êîëè÷åñòâî ìîíîìîâ â ïîëèíîìå: ";
-	cin >> size;
-
-	for (size_t i = 0; i < size; i++)
-	{
-		cout << "Ââåäèòå ñòåïåíü ìîíîìà: ";
-		cin >> degree;
-
-		cout << "Ââåäèòå êîýôôèöèåíò ìîíîìà: ";
-		cin >> coef;
-	}
+	cout << "______________________________" << endl;
 }
 
-enum class Choice { A_plus_B = 1, A_minus_B, B_minus_A, A_mult_B, A_mult_Const, B_mult_Const, Quit1 = 1, Quit2 = 7 };
-enum Colors { Black = 0, Blue = 1, Green, LightBlue, Red, White = 7, UltraGreen = 10, Coral = 12, UltraWhite = 15 };
-HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
+void longLine()
+{
+	cout << "____________________________________________________________________________" << endl << endl;
+}
 
 int main()
 {
 	setlocale(LC_ALL, "Russian");
 
-	List<Monom> list;
-	Monom* array = new Monom[10];
-	for (int i = 0; i < 10; i++)
-	{
-		array[i].coef = i * -100 - i * 10 + i - 10;
-		array[i].degree = i * 100 + i * 10 + i + rand() % 10 + 2;
-		list.push_back(array[i]);
-	}
-
-	Polynomial polynomial(list);
-	polynomial.getPolynomial();
-	cout << "Ïðàâèëà ïîëüçîâàíèÿ: " << endl;
-	cout << "1) Ñíà÷àëà âû äîëæíû ââåñòè êîëè÷åñòâî ìîíîìîâ â ïîëèíîìå" << endl;
-	cout << "2) Äàëüøå äëÿ êàæäîãî ìîíîìà ââîäèòñÿ åãî ñòåïåíü" << endl;
-#ifdef _WIN64 or _WIN32
+	cout << "ÐŸÑ€Ð°Ð²Ð¸Ð»Ð° Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ð½Ð¸Ñ: " << endl;
+	cout << "1) Ð¡Ð½Ð°Ñ‡Ð°Ð»Ð° Ð²Ñ‹ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð²Ð²ÐµÑÑ‚Ð¸ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¼Ð¾Ð½Ð¾Ð¼Ð¾Ð² Ð² Ð¿Ð¾Ð»Ð¸Ð½Ð¾Ð¼Ðµ" << endl;
+	cout << "2) Ð”Ð°Ð»ÑŒÑˆÐµ Ð´Ð»Ñ ÐºÐ°Ð¶Ð´Ð¾Ð³Ð¾ Ð¼Ð¾Ð½Ð¾Ð¼Ð° Ð²Ð²Ð¾Ð´Ð¸Ñ‚ÑÑ ÐµÐ³Ð¾ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ" << endl;
+#ifdef _WIN64
 	SetConsoleTextAttribute(console_color, Coral);
 #endif
-	cout << "   !!!Çàìåòüòå: " << endl;
-	cout << "   Êîëè÷åñòâî ñîòåí îòâå÷àåò çà ñòåïåíü ó 'x'" << endl;
-	cout << "   Êîëè÷åñòâî äåñÿòêîâ - ñòåïåíü 'y'" << endl;
-	cout << "   Êîëè÷åñòâî åäèíèö - ñòåïåíü z" << endl;
-	cout << "   Ìàêñèìàëüíàÿ ñòåïåíü - 999!!!" << endl;
-#ifdef _WIN64 or _WIN32
+	cout << "   !!!Ð—Ð°Ð¼ÐµÑ‚ÑŒÑ‚Ðµ: " << endl;
+	cout << "   ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ¾Ñ‚ÐµÐ½ Ð¾Ñ‚Ð²ÐµÑ‡Ð°ÐµÑ‚ Ð·Ð° ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ Ñƒ 'x'" << endl;
+	cout << "   ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð´ÐµÑÑÑ‚ÐºÐ¾Ð² - ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ 'y'" << endl;
+	cout << "   ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÐµÐ´Ð¸Ð½Ð¸Ñ† - ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ z" << endl;
+	cout << "   ÐœÐ°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ð°Ñ ÑÑ‚ÐµÐ¿ÐµÐ½ÑŒ - 999!!!" << endl;
+#ifdef _WIN64
 	SetConsoleTextAttribute(console_color, White);
 #endif
-	cout << "3) Ââåäèòå êîýôôèöèåíò ìîíîìà" << endl;
-	cout << "4) Ïîâòîðÿéòå øàãè 2) è 3) äî òåõ ïîð, ïîêà íå ïîÿâèòñÿ ìåíþ âûáîðà îïåðàöèé" << endl;
-	cout << "5) Âûáåðèòå îïåðàöèþ íàä ìîíîìàìè" << endl;
+	cout << "3) Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾ÑÑ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚ Ð¼Ð¾Ð½Ð¾Ð¼Ð°" << endl;
+	cout << "4) ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€ÑÐ¹Ñ‚Ðµ ÑˆÐ°Ð³Ð¸ 2) Ð¸ 3) Ð´Ð¾ Ñ‚ÐµÑ… Ð¿Ð¾Ñ€, Ð¿Ð¾ÐºÐ° Ð½Ðµ Ð¿Ð¾ÑÐ²Ð¸Ñ‚ÑÑ Ð¼ÐµÐ½ÑŽ Ð²Ñ‹Ð±Ð¾Ñ€Ð° Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹" << endl;
+	cout << "5) Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸ÑŽ Ð½Ð°Ð´ Ð¼Ð¾Ð½Ð¾Ð¼Ð°Ð¼Ð¸" << endl;
 	
-	cout << "____________________________________________________________________________" << endl << endl;
+	longLine();
 
 	size_t choice, quit1 = 1, quit2;
-	Choice temp;
+
 	while (quit1)
 	{
+		Polynomial A, B;
 		try
 		{
 			quit2 = 1;
-			cout << "Ââåäèòå ïåðâûé ïîëèíîì(A)" << endl;
-			polynomialEnter();
+			cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¿ÐµÑ€Ð²Ñ‹Ð¹ Ð¿Ð¾Ð»Ð¸Ð½Ð¾Ð¼(A)" << endl;
+			A.setPolynomial();
 
-			cout << "______________________________" << endl;
+			shortLine();
 
-			cout << "Ââåäèòå âòîðîé ïîëèíîì(B)" << endl;
-			polynomialEnter();
+			cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¿Ð¾Ð»Ð¸Ð½Ð¾Ð¼(B)" << endl;
+			B.setPolynomial();
 
 			while (quit2)
 			{
-				cout << "______________________________" << endl;
-				cout << "Âûáåðèòå îïåðàöèþ: " << endl;
+				cout << endl;
+				shortLine();
+				cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸ÑŽ: " << endl;
 				cout << "1) C = A + B" << endl;
 				cout << "2) C = A - B" << endl;
 				cout << "3) C = B - A" << endl;
 				cout << "4) C = A * B" << endl;
 				cout << "5) C = A * const" << endl;
 				cout << "6) C = B * const" << endl;
-				cout << "7) Âûéòè èç ìåíþ âûáîðà îïåðàöèé" << endl;
-				cout << "Âàø âûáîð: ";
+				cout << "7) Ð’Ñ‹Ð¹Ñ‚Ð¸ Ð¸Ð· Ð¼ÐµÐ½ÑŽ Ð²Ñ‹Ð±Ð¾Ñ€Ð° Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹" << endl;
+				cout << "Ð’Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
 				cin >> choice;
-				cout << "______________________________" << endl;
-
-				temp = static_cast<Choice>(choice);
+				shortLine();
 				
-				switch (temp) {
+#ifdef _WIN64
+				SetConsoleTextAttribute(console_color, Green);
+#endif
+
+				cout << "ÐŸÐ¾Ð»Ð¸Ð½Ð¾Ð¼ Ð: ";
+				A.getPolynomial();
+				cout << endl << "ÐŸÐ¾Ð»Ð¸Ð½Ð¾Ð¼ B: ";
+				B.getPolynomial();
+
+				switch (choice) {
 				case Choice::A_plus_B:
 				{
-					cout << "C = A + B: " << endl;
-					throw "This is wrong. Try again";
+					cout << endl << "C = A + B: ";
+					(A + B).getPolynomial();
 					break;
 				}
 				case Choice::A_minus_B:
 				{
-					cout << "C = A - B: " << endl;
+					cout << endl << "C = A - B: ";
+					(A - B).getPolynomial();
+					cout << endl;
 					break;
 				}
 				case Choice::B_minus_A:
 				{
-					cout << "C = B - A: " << endl;
+					cout << endl << "C = B - A: ";
+					(B - A).getPolynomial();
+					cout << endl;
 					break;
 				}
 				case Choice::A_mult_B:
 				{
-					cout << "C = A * B: " << endl;
+					cout << endl << "C = A * B: ";
+					(A * B).getPolynomial();
+					cout << endl;
 					break;
 				}
 				case Choice::A_mult_Const:
 				{
-					cout << "C = A * const: " << endl;
+					cout << endl << "C = A * const: ";
+					(A * B).getPolynomial();
+					cout << endl;
 					break;
 				}
 				case Choice::B_mult_Const:
 				{
-					cout << "C = B * const: " << endl;
+					cout << endl << "C = B * const: ";
+					(A * B).getPolynomial();
+					cout << endl;
 					break;
 				}
 				case Choice::Quit2:
@@ -133,19 +136,24 @@ int main()
 				}
 				default:
 				{
-					cout << "Ïîâòîðèòå ïîïûòêó" << endl;
+					cout << endl << "ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÑƒ" << endl;
 					break;
 				}}
+
+#ifdef _WIN64
+				SetConsoleTextAttribute(console_color, White);
+#endif
 			}
 
-			cout << "Õîòèòå âûéòè èç ïðîãðàììû?" << endl;
-			cout << "1) Âûéòè" << endl;
-			cout << "2) Ïðîäîëæèòü" << endl;
-			cout << "Âàø âûáîð: ";
+			cout << endl;
+			shortLine();
+			cout << "Ð¥Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð²Ñ‹Ð¹Ñ‚Ð¸ Ð¸Ð· Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹?" << endl;
+			cout << "1) Ð’Ñ‹Ð¹Ñ‚Ð¸" << endl;
+			cout << "2) ÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ" << endl;
+			cout << "Ð’Ð°Ñˆ Ð²Ñ‹Ð±Ð¾Ñ€: ";
 			cin >> choice;
-			temp = static_cast<Choice>(choice);
 
-			switch (temp) {
+			switch (choice) {
 			case Choice::Quit1:
 			{
 				quit1 = 0;
@@ -153,22 +161,25 @@ int main()
 			}
 			default:
 			{
-				cout << "______________________________" << endl;
+				shortLine();
 				break;
 			}}
 		}
 
 		catch (const char* msg)
 		{
-			cout << "______________________________" << endl;
-#ifdef _WIN64 or _WIN32
+#ifdef _WIN64
+			SetConsoleTextAttribute(console_color, White);
+#endif
+			shortLine();
+#ifdef _WIN64
 			SetConsoleTextAttribute(console_color, Red);
 #endif
 			cout << msg << endl;
-#ifdef _WIN64 or _WIN32
+#ifdef _WIN64
 			SetConsoleTextAttribute(console_color, White);
 #endif
-			cout << "______________________________" << endl;
+			shortLine();
 		}
 	}
 }

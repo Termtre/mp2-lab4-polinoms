@@ -653,3 +653,150 @@ TEST(List, sorted_list_is_true)
     for (size_t i = 0; i < list.size(); i++, temp = temp->next)
         EXPECT_EQ(i, temp->data);
 }
+
+TEST(List, can_find_node_in_list)
+{
+    List<int> list(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    ASSERT_NO_THROW(list.find(temp));
+}
+
+TEST(List, find_node_in_list_true)
+{
+    List<int> list(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    EXPECT_EQ(true, list.find(temp));
+}
+
+TEST(List, find_node_in_list_false)
+{
+    List<int> list(3);
+    List<int> list1(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    Node<int>* cur = list1.begin();
+    EXPECT_EQ(false, list.find(cur));
+}
+
+TEST(List, can_find_node_in_empty_list)
+{
+    List<int> list;
+    Node<int>* temp = nullptr;
+    ASSERT_NO_THROW(list.find(temp));
+}
+
+TEST(List, find_node_in_empty_list_true)
+{
+    List<int> list;
+    Node<int>* temp = nullptr;
+    EXPECT_EQ(true, list.find(temp));
+}
+
+TEST(List, can_find_node_in_list_with_one_element)
+{
+    List<int> list(1);
+    Node<int>* temp = list.begin();
+    ASSERT_NO_THROW(list.find(temp));
+}
+
+TEST(List, find_node_in_list_with_one_element_true)
+{
+    List<int> list;
+    Node<int>* temp = list.begin();
+    EXPECT_EQ(true, list.find(temp));
+}
+
+TEST(List, can_delete_next_node_in_list)
+{
+    List<int> list(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    ASSERT_NO_THROW(list.deleteNextNode(temp));
+}
+
+TEST(List, delete_next_node_in_list_true)
+{
+    List<int> list(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    Node<int>* fast = temp->next->next;
+    list.deleteNextNode(temp);
+    EXPECT_EQ(temp->next, fast);
+}
+
+
+TEST(List, delete_next_node_in_list_false)
+{
+    List<int> list(3);
+    List<int> list1(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    Node<int>* fast = temp->next;
+    Node<int>* slow = list1.begin();
+    list.deleteNextNode(slow);
+    EXPECT_EQ(temp->next, fast);
+}
+
+TEST(List, delete_next_node_in_list_decrease_size_on_one)
+{
+    List<int> list(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    list.deleteNextNode(temp);
+    EXPECT_EQ(3, list.size());
+}
+
+TEST(List, can_delete_next_node_in_empty_list)
+{
+    List<int> list;
+    Node<int>* temp = list.begin();
+    ASSERT_NO_THROW(list.deleteNextNode(temp));
+}
+
+TEST(List, delete_next_node_in_empty_list_true)
+{
+    List<int> list;
+    Node<int>* temp = list.begin();
+    list.deleteNextNode(temp);
+    EXPECT_EQ(nullptr, temp);
+}
+
+TEST(List, can_delete_tail_in_list)
+{
+    List<int> list(1);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* temp = list.begin();
+    while (temp->next->next) temp = temp->next;
+    ASSERT_NO_THROW(list.deleteNextNode(temp));
+}
+
+TEST(List, delete_tail_in_list_true)
+{
+    List<int> list(1);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    Node<int>* fast = list.begin();
+    Node<int>* temp = list.end();
+    while (fast->next->next) fast = fast->next;
+    list.deleteNextNode(fast);
+    EXPECT_NE(temp, list.end());
+}

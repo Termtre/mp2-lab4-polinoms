@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include <iostream>
 
@@ -10,13 +10,13 @@ struct Node
 	T data;
 	Node<T>* next;
 
-	Node() : data(T()), next(nullptr) {}						// Конструктор по умолчанию
+	Node() : data(T()), next(nullptr) {}						// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 
-	Node(T var) : data(static_cast<T>(var)), next(nullptr) {}	// Конструктор инициализации
+	Node(T var) : data(static_cast<T>(var)), next(nullptr) {}	// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
 };
 
 template<class T>
-class List														// Класс односвязный список с фиктивной головой
+class List														// РљР»Р°СЃСЃ РѕРґРЅРѕСЃРІСЏР·РЅС‹Р№ СЃРїРёСЃРѕРє СЃ С„РёРєС‚РёРІРЅРѕР№ РіРѕР»РѕРІРѕР№
 {
 private:
 	Node<T>* head;
@@ -33,7 +33,7 @@ public:
 		head->next = tail;
 	}
 
-	List(List& other) : head(new Node<T>()), tsize(other.tsize)
+	List(const List& other) : head(new Node<T>()), tsize(other.tsize)
 	{
 		if (other.isEmpty())
 		{
@@ -72,17 +72,17 @@ public:
 		head = nullptr;
 	}
 
-	Node<T>* begin()
+	Node<T>* begin() const
 	{
 		return head->next;
 	}
 
-	Node<T>* end()
+	Node<T>* end() const
 	{
 		return tail;
 	}
 
-	bool isEmpty()
+	bool isEmpty() const
 	{
 		return tail == nullptr;
 	}
@@ -127,6 +127,51 @@ public:
 		tsize++;
 	}
 
+	bool find(Node<T>* cur) const
+	{
+		if (isEmpty()) return cur == nullptr;
+
+		else if (this->tsize == 1) return tail == cur;
+
+		else
+		{
+			Node<T>* temp = head->next;
+
+			while (temp)
+			{
+				if (temp == cur) return true;
+				temp = temp->next;
+			}
+
+			return false;
+		}
+	}
+
+	void deleteNextNode(Node<T>* node)
+	{
+		if (!find(node) || tsize == 1 || isEmpty() || node == tail) return;
+
+		if (node->next == tail)
+		{
+			Node<T>* temp = node;
+			delete tail;
+			tail = temp;
+			tail->next = nullptr;
+		}
+
+		else
+		{
+			Node<T>* temp;
+			Node<T>* cur = node;
+			temp = cur;
+			cur = cur->next;
+			temp->next = cur->next;
+			delete cur;
+		}
+
+		tsize--;
+	}
+
 	void clear()
 	{
 		if (!isEmpty())
@@ -147,7 +192,7 @@ public:
 		}
 	}
 
-	bool operator ==(List& other)
+	bool operator ==(const List& other) const
 	{
 		if (this->tsize == other.tsize)
 		{
@@ -174,12 +219,12 @@ public:
 		return false;
 	}
 
-	bool operator !=(List& other)
+	bool operator !=(const List& other) const
 	{
 		return !(*this == other);
 	}
 
-	List& operator =(List& other) // ???
+	const List& operator =(const List& other) // ???
 	{
 		if (*this != other)
 		{	
@@ -228,7 +273,7 @@ public:
 		return *this;
 	}
 
-	void merge(List& other)
+	void merge(const List& other)
 	{
 		if (other.isEmpty()) return;
 
@@ -254,7 +299,7 @@ public:
 		*this = third;
 	}
 
-	void splice(List& one, List& second)
+	void splice(List& one, List& second) const
 	{
 		if (!one.isEmpty()) one.clear();
 		if (!second.isEmpty()) second.clear();
@@ -282,7 +327,7 @@ public:
 		}
 	}
 
-	friend ostream& operator <<(ostream& ostr, List& other)
+	friend ostream& operator <<(ostream& ostr, const List& other)
 	{
 		Node<T>* temp = other.begin();
 

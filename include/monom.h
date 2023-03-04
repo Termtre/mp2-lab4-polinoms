@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include <iostream>
 
@@ -9,37 +9,41 @@ struct Monom
 	int degree;
 	double coef;
 
-	Monom();										// Конструктор по умолчанию
+	Monom();										// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 
-	Monom(int, double);								// Конструктор инициализации
+	Monom(int, double);								// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
 
-	Monom(double);									// Конструктор преобразования
+	Monom(double);									// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ
 
-	Monom(const Monom&);							// Конструктор копирования
+	Monom(const Monom&);							// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 
-	const Monom& operator =(const Monom&);			// оператор =
+	const Monom& operator =(const Monom&);			// РѕРїРµСЂР°С‚РѕСЂ =
 
-	Monom operator +(const Monom&) const;			// оператор +
+	Monom operator +(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ +
 
-	Monom operator -(const Monom&) const;			// оператор -
+	Monom& operator +=(const Monom&);				// РѕРїРµСЂР°С‚РѕСЂ +=
 
-	Monom operator *(const Monom&) const;			// оператор *
+	Monom operator -(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ -
 
-	Monom operator *(const double&) const;			// оператор * на const
+	Monom operator *(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ *
 
-	bool operator <(const Monom&) const;			// оператор <
+	Monom operator *=(const Monom& other);
 
-	bool operator <=(const Monom&) const;			// оператор <=
+	Monom operator *=(const double&);			// РѕРїРµСЂР°С‚РѕСЂ *= РЅР° const
 
-	bool operator >(const Monom&) const;			// оператор >
+	bool operator <(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ <
 
-	bool operator >=(const Monom&) const;			// оператор >=
+	bool operator <=(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ <=
 
-	bool operator ==(const Monom&) const;			// оператор ==
+	bool operator >(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ >
 
-	bool operator !=(const Monom&) const;			// оператор !=
+	bool operator >=(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ >=
 
-	void setMonom(int, double);						// Установка значения монома
+	bool operator ==(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ ==
+
+	bool operator !=(const Monom&) const;			// РѕРїРµСЂР°С‚РѕСЂ !=
+
+	void setMonom(int, double);						// РЈСЃС‚Р°РЅРѕРІРєР° Р·РЅР°С‡РµРЅРёСЏ РјРѕРЅРѕРјР°
 	
-	void getMonom();								// Вывод на экран монома
+	void getMonom();								// Р’С‹РІРѕРґ РЅР° СЌРєСЂР°РЅ РјРѕРЅРѕРјР°
 };

@@ -1,6 +1,7 @@
-#pragma once
+п»ї#pragma once
 
 #include <iostream>
+#include <cmath>
 #include "list.hpp"
 #include "monom.h"
 
@@ -11,21 +12,30 @@ class Polynomial
 private:
 	List<Monom> tData;
 public:
-	Polynomial();									// Конструктор по умолчанию		
+	Polynomial();									// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ		
 													
-	Polynomial(List<Monom>&);						// Конструктор инициализации списком
+	Polynomial(const List<Monom>&);						// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё СЃРїРёСЃРєРѕРј
 
-	Polynomial(Monom*, size_t);						// Конструктор инициализации массивом мономов
-	//Нулевой массив???
-	// Если да, добавить нулевой моном
+	Polynomial(const Monom&);						// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РјРѕРЅРѕРјРѕРј
 
-	Polynomial(const Monom&);						// Конструктор инициализации мономом
+	Polynomial(const Polynomial&);					// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 
-	Polynomial(const Polynomial&);					// Конструктор копирования
+	const Polynomial& operator =(const Polynomial&);		// РѕРїРµСЂР°С‚РѕСЂ =
 
-	const Polynomial& operator =(Polynomial&);		// оператор =
+	Polynomial operator +(const Polynomial&) const; // РѕРїРµСЂР°С‚РѕСЂ +
 
-	Polynomial operator +(const Polynomial&) const; // оператор +
+	Polynomial operator *(const double& temp) const; // РѕРїРµСЂР°С‚РѕСЂ * РЅР° const
 
-	void getPolynomial();							// Вывести полином на экран // for Monom
+	Polynomial operator *=(const double& var);
+
+	Polynomial operator -(const Polynomial&) const; // РѕРїРµСЂР°С‚РѕСЂ -
+
+	Polynomial operator *(const Polynomial&) const; // РћРїРµСЂР°С‚РѕСЂ *
+
+	void truePolynomial();							// РЈРґР°Р»СЏРµС‚ РјРѕРЅРѕРјС‹ СЃ РЅСѓР»РµРІС‹РјРё РєРѕСЌС„С„РёС†РёРµРЅС‚Р°РјРё 
+													// РёР»Рё СЃРєР»Р°РґС‹РІР°РµС‚ РјРѕРЅРѕРјС‹ СЃ РѕРґРёРЅР°РєРѕРІС‹РјРё СЃС‚РµРїРµРЅСЏРјРё
+
+	void setPolynomial();							// Р’РІРµСЃС‚Рё РїРѕР»РёРЅРѕРј
+
+	void getPolynomial();							// Р’С‹РІРµСЃС‚Рё РїРѕР»РёРЅРѕРј РЅР° СЌРєСЂР°РЅ // for Monom
 };

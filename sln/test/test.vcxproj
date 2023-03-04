@@ -35,6 +35,7 @@
     <ClCompile Include="..\..\test\test_main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Лабораторная\mp2-lab4-polinoms\gtest;C:\Лабораторная\mp2-lab4-polinoms\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="..\..\test\test_monom.cpp" />
     <ClCompile Include="..\..\test\test_polynomial.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\list.hpp" />
+    <ClInclude Include="..\..\include\monom.h" />
     <ClInclude Include="..\..\include\polynomial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\monom.cpp" />
     <ClCompile Include="..\..\src\polynomial.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

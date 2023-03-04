@@ -28,5 +28,8 @@
     <ClCompile Include="..\..\test\test_polynomial.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\test\test_monom.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

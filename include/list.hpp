@@ -129,19 +129,22 @@ public:
 
 	void clear()
 	{
-		Node<T>* pointer = head->next;
-		Node<T>* temp;
-
-		while (pointer)
+		if (!isEmpty())
 		{
-			temp = pointer;
-			pointer = pointer->next;
-			delete temp;
-		}
+			Node<T>* pointer = head->next;
+			Node<T>* temp;
 
-		tail = nullptr;
-		head->next = tail;
-		tsize = size_t(0);
+			while (pointer)
+			{
+				temp = pointer;
+				pointer = pointer->next;
+				delete temp;
+			}
+
+			tail = nullptr;
+			head->next = tail;
+			tsize = size_t(0);
+		}
 	}
 
 	bool operator ==(List& other)

@@ -2,44 +2,9 @@
 
 #include <iostream>
 #include "list.hpp"
+#include "monom.h"
 
 using namespace std;
-
-struct Monom
-{
-	int degree;
-	double coef;
-
-	Monom();										// Конструктор по умолчанию
-
-	Monom(int, double);								// Конструктор инициализации
-
-	Monom(const Monom&);							// Конструктор копирования
-
-	const Monom& operator =(const Monom&);			// Оператор =
-
-	Monom operator +(const Monom&);					// оператор +
-
-	Monom operator -(const Monom&);					// оператор -
-
-	Monom operator *(const Monom&);					// оператор *
-
-	Monom operator /(const Monom&);					// оператор /
-
-	bool operator <(const Monom&) const;			// оператор <
-
-	bool operator <=(const Monom&) const;			// оператор <=
-
-	bool operator >(const Monom&) const;			// оператор >
-
-	bool operator >=(const Monom&) const;			// оператор >=
-
-	bool operator ==(const Monom&) const;			// оператор ==
-
-	bool operator !=(const Monom&) const;			// оператор !=
-
-	void setMonom(int, double);						// Установка значения монома
-};
 
 class Polynomial
 {
@@ -62,5 +27,5 @@ public:
 
 	Polynomial operator +(const Polynomial&) const; // оператор +
 
-	void getPolynomial();							// Вывести полином на экран
+	void getPolynomial();							// Вывести полином на экран // for Monom
 };

@@ -78,14 +78,18 @@ Polynomial::Polynomial(List<Monom>& other)
 void Polynomial::getPolynomial()
 {
 	Node<Monom>* temp = tData.begin();
-	string str;
+	int x, y, z;
 
 	for (size_t i = 0; i < tData.size(); i++, temp = temp->next)
 	{
+		x = (temp->data.degree / 100) % 10;
+		y = (temp->data.degree / 10) % 10;
+		z = temp->data.degree % 10;
+
 		if ((i != 0) && temp->data.coef > 0) cout << "+";
 		cout << temp->data.coef;
-		if ((temp->data.degree / 100) % 10) cout << "x^(" << ((temp->data.degree / 100) % 10) << ")";
-		if ((temp->data.degree / 10) % 10) cout << "y^(" << ((temp->data.degree / 10) % 10) << ")";
-		if (temp->data.degree % 10) cout << "z^(" << (temp->data.degree % 10) << ")";
+		if (x) cout << "x^(" << x << ")";
+		if (y) cout << (x ? "*" : "") << "y^(" << y << ")";
+		if (z) cout << (y ? "*" : "") << "z^(" << z << ")";
 	}
 }

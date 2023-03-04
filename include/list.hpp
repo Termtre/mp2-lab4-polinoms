@@ -227,13 +227,15 @@ public:
 
 	void merge(List& other)
 	{
+		if (other.isEmpty()) return;
+
 		Node<T>* t = this->head->next;
 		Node<T>* o = other.head->next;
 		List<T> third;
 
 		while (t || o)
 		{
-			if (t && (o || (t->data >= o->data)))
+			if (t && ((o == nullptr) || (t->data <= o->data)))
 			{
 				third.push_back(t->data);
 				t = t->next;
@@ -249,15 +251,31 @@ public:
 		*this = third;
 	}
 
-	void sort(Node<T>* first, Node<T>* last)
+	void splice(List& one, List& second)
 	{
-		int middle = (first + last) / 2;
+		if (!one.isEmpty()) one.clear();
+		if (!second.isEmpty()) second.clear();
 
-		if (left < right)
+		Node<T>* temp = this->begin();
+		int middle = this->tsize != 1 ? (static_cast<int>(this->tsize) / 2) : 1;
+
+		for (int i = 0; i < middle; i++, temp = temp->next)
+			one.push_back(temp->data);
+
+		for (int i = middle; i < this->tsize; i++, temp = temp->next)
+			second.push_back(temp->data);
+	}
+
+	void sort()
+	{
+		if (!this->isEmpty() && this->tsize != 1)
 		{
-			sort(left, middle);
-			sort(middle + 1, right);
-			merge();
+			List<T> left, right;
+			this->splice(left, right);
+			left.sort();
+			right.sort();
+			left.merge(right);
+			*this = left;
 		}
 	}
 

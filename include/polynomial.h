@@ -48,7 +48,7 @@ private:
 public:
 	Polynomial();									// Конструктор по умолчанию		
 													
-	Polynomial(List<Monom>&);					// Конструктор инициализации списком
+	Polynomial(List<Monom>&);						// Конструктор инициализации списком
 
 	Polynomial(Monom*, size_t);						// Конструктор инициализации массивом мономов
 	//Нулевой массив???
@@ -61,13 +61,6 @@ public:
 	const Polynomial& operator =(Polynomial&);		// оператор =
 
 	Polynomial operator +(const Polynomial&) const; // оператор +
-
-	Polynomial& operator +=(const Polynomial&);		// оператор +=
-
-	Polynomial& operator *=(double);				// оператор *=
-
-	Polynomial& operator -=(Polynomial&);			// оператор -=
-	// peredelat'
 
 	void getPolynomial();							// Вывести полином на экран
 };

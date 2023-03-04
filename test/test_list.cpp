@@ -473,10 +473,183 @@ TEST(List, can_merge_two_lists)
 
 TEST(List, merge_two_lists_true)
 {
-    List<int> list(0);
-    List<int> list1(1);
+    List<int> list(1);
+    list.push_back(3);
+    list.push_back(4);
+    List<int> list1(0);
+    list1.push_back(2);
     list.merge(list1);
     Node<int>* temp = list.begin();
-    for (size_t i = 0; i < 2; i++, temp = temp->next)
+    for (size_t i = 0; i < 5; i++, temp = temp->next)
+        EXPECT_EQ(i, temp->data);
+}
+
+TEST(List, can_splice_list)
+{
+    List<int> list(2);
+    list.push_back(3);
+    List<int> list1;
+    List<int> list2;
+
+    ASSERT_NO_THROW(list.splice(list1, list2));
+}
+
+TEST(List, splices_lists_have_true_size)
+{
+    List<int> list(2);
+    list.push_back(3);
+    List<int> list1;
+    List<int> list2;
+    
+    list.splice(list1, list2);
+
+    EXPECT_EQ(1, list1.size());
+    EXPECT_EQ(1, list2.size());
+}
+
+TEST(List, splices_lists_have_true_data)
+{
+    List<int> list(2);
+    list.push_back(3);
+    List<int> list1;
+    List<int> list2;
+
+    list.splice(list1, list2);
+
+    EXPECT_EQ(2, list1.begin()->data);
+    EXPECT_EQ(3, list2.begin()->data);
+}
+
+TEST(List, can_splice_empty_list)
+{
+    List<int> list;
+    List<int> list1;
+    List<int> list2;
+
+    ASSERT_NO_THROW(list.splice(list1, list2));
+}
+
+TEST(List, splices_lists_also_empty)
+{
+    List<int> list;
+    List<int> list1;
+    List<int> list2;
+
+    list.splice(list1, list2);
+
+    EXPECT_EQ(true, list1.isEmpty());
+    EXPECT_EQ(true, list2.isEmpty());
+}
+
+TEST(List, can_splice_empty_list_on_two_not_empty_lists)
+{
+    List<int> list;
+    List<int> list1(2);
+    List<int> list2(3);
+
+    ASSERT_NO_THROW(list.splice(list1, list2));
+}
+
+TEST(List, splices_not_empty_lists_will_be_empty)
+{
+    List<int> list;
+    List<int> list1(2);
+    List<int> list2(3);
+
+    list.splice(list1, list2);
+
+    EXPECT_EQ(true, list1.isEmpty());
+    EXPECT_EQ(true, list2.isEmpty());
+}
+
+TEST(List, can_splice_list_on_two_not_empty_lists)
+{
+    List<int> list;
+    List<int> list1(2);
+    List<int> list2(3);
+
+    ASSERT_NO_THROW(list.splice(list1, list2));
+}
+
+TEST(List, splices_not_empty_lists_will_be_not_empty)
+{
+    List<int> list(3);
+    list.push_back(4);
+    List<int> list1(2);
+    List<int> list2(3);
+
+    list.splice(list1, list2);
+
+    EXPECT_EQ(1, list1.size());
+    EXPECT_EQ(1, list2.size());
+}
+
+TEST(List, splices_not_empty_lists_will_have_true_data)
+{
+    List<int> list(3);
+    list.push_back(4);
+    List<int> list1(2);
+    List<int> list2(3);
+
+    list.splice(list1, list2);
+
+    EXPECT_EQ(3, list1.begin()->data);
+    EXPECT_EQ(4, list2.begin()->data);
+}
+
+TEST(List, can_splice_list_with_one_element)
+{
+    List<int> list(3);
+    List<int> list1;
+    List<int> list2;
+
+    ASSERT_NO_THROW(list.splice(list1, list2));
+}
+
+TEST(List,splices_lists_from_list_with_one_element_have_true_size)
+{
+    List<int> list(3);
+    List<int> list1;
+    List<int> list2;
+
+    list.splice(list1, list2);
+
+    EXPECT_EQ(1, list1.size());
+    EXPECT_EQ(0, list2.size());
+}
+
+TEST(List, splices_lists_from_list_with_one_element_have_true_data)
+{
+    List<int> list(3);
+    List<int> list1;
+    List<int> list2;
+
+    list.splice(list1, list2);
+
+    EXPECT_EQ(3, list1.begin()->data);
+    EXPECT_EQ(nullptr, list2.begin());
+}
+
+TEST(List, can_sort_list)
+{
+    List<int> list(3);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+
+    ASSERT_NO_THROW(list.sort());
+}
+
+TEST(List, sorted_list_is_true)
+{
+    List<int> list(3);
+    Node<int>* temp = list.begin();
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+
+    list.sort();
+
+    for (size_t i = 0; i < list.size(); i++, temp = temp->next)
         EXPECT_EQ(i, temp->data);
 }

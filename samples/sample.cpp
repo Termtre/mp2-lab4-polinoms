@@ -41,7 +41,7 @@ int main()
 	}
 
 	Polynomial polynomial(list);
-
+	polynomial.getPolynomial();
 	cout << "Правила пользования: " << endl;
 	cout << "1) Сначала вы должны ввести количество мономов в полиноме" << endl;
 	cout << "2) Дальше для каждого монома вводится его степень" << endl;
@@ -104,7 +104,6 @@ int main()
 				case Choice::A_minus_B:
 				{
 					cout << "C = A - B: " << endl;
-					polynomial.getPolynomial();
 					break;
 				}
 				case Choice::B_minus_A:

@@ -8,8 +8,8 @@ Monom::Monom(int var, double dvar) : degree(int(var)), coef(double(dvar))
 {
 	if (degree < 0 || degree > 999)
 	{
-		string temp = "\"Monom::Monom\": min monom degree is 0 and max one is 999,\n but it's " + to_string(degree);
-		throw temp;
+		string error = "\"Monom::Monom\": min monom degree is 0 and max one is 999,\n but it's " + to_string(degree);
+		throw error;
 	};
 }
 
@@ -34,10 +34,10 @@ Monom Monom::operator +(const Monom& other) const
 {
 	if (this->degree != other.degree)
 	{
-		string temp = "\"Monom::operator+\": you can add two monoms only with equal degree,\n";
-		temp += "but first monom has " + to_string(this->degree) + "degree and second one has ";
-		temp += to_string(other.degree);
-		throw temp;
+		string error = "\"Monom::operator+\": you can add two monoms only with equal degree,\n";
+		error += "but first monom has " + to_string(this->degree) + "degree and second one has ";
+		error += to_string(other.degree);
+		throw error;
 	}
 
 	Monom third(*this);
@@ -49,10 +49,10 @@ Monom& Monom::operator +=(const Monom& other)
 {
 	if (this->degree != other.degree)
 	{
-		string temp = "\"Monom::operator+\": you can add two monoms only with equal degree,\n";
-		temp += "but first monom has " + to_string(this->degree) + "degree and second one has ";
-		temp += to_string(other.degree);
-		throw temp;
+		string error = "\"Monom::operator+\": you can add two monoms only with equal degree,\n";
+		error += "but first monom has " + to_string(this->degree) + "degree and second one has ";
+		error += to_string(other.degree);
+		throw error;
 	}
 
 	this->coef += other.coef;
@@ -63,10 +63,10 @@ Monom Monom::operator -(const Monom& other) const
 {
 	if (this->degree != other.degree)
 	{
-		string temp = "\"Monom::operator-\": you can subtract two monoms only with equal degree,\n";
-		temp += "but first monom has " + to_string(this->degree) + "degree and second one has ";
-		temp += to_string(other.degree);
-		throw temp;
+		string error = "\"Monom::operator-\": you can subtract two monoms only with equal degree,\n";
+		error += "but first monom has " + to_string(this->degree) + "degree and second one has ";
+		error += to_string(other.degree);
+		throw error;
 	}
 
 	Monom third(*this);
@@ -88,16 +88,16 @@ Monom Monom::operator *(const Monom& other) const
 
 	if (px > 9 || py > 9 || pz > 9)
 	{
-		string temp = "\"Monom::operator*\": max monom degree by variable is 9,\n";
-		temp += "but if ";
-		temp += this->stringMonom();
-		temp += " * ";
-		temp += other.stringMonom();
-		temp += " : ";
-		if (px > 9) temp += "x degree = " + to_string(px) + "; ";
-		if (py > 9) temp += "y degree = " + to_string(py) + "; ";
-		if (pz > 9) temp += "z degree = " + to_string(pz) + "; ";
-		throw temp;
+		string error = "\"Monom::operator*\": max monom degree by variable is 9,\n";
+		error += "but if ";
+		error += this->stringMonom();
+		error += " * ";
+		error += other.stringMonom();
+		error += " : ";
+		if (px > 9) error += "x degree = " + to_string(px) + "; ";
+		if (py > 9) error += "y degree = " + to_string(py) + "; ";
+		if (pz > 9) error += "z degree = " + to_string(pz) + "; ";
+		throw error;
 	}
 
 	Monom third(*this);
@@ -120,16 +120,16 @@ Monom Monom::operator *=(const Monom& other)
 
 	if (px > 9 || py > 9 || pz > 9)
 	{
-		string temp = "\"Monom::operator*=\": max monom degree by variable is 9,\n";
-		temp += "but if ";
-		temp += this->stringMonom();
-		temp += " * ";
-		temp += other.stringMonom();
-		temp += " : ";
-		if (px > 9) temp += "x degree = " + to_string(px) + "; ";
-		if (py > 9) temp += "y degree = " + to_string(py) + "; ";
-		if (pz > 9) temp += "z degree = " + to_string(pz) + "; ";
-		throw temp;
+		string error = "\"Monom::operator*=\": max monom degree by variable is 9,\n";
+		error += "but if ";
+		error += this->stringMonom();
+		error += " * ";
+		error += other.stringMonom();
+		error += " : ";
+		if (px > 9) error += "x degree = " + to_string(px) + "; ";
+		if (py > 9) error += "y degree = " + to_string(py) + "; ";
+		if (pz > 9) error += "z degree = " + to_string(pz) + "; ";
+		throw error;
 	}
 
 	this->degree += other.degree;
@@ -197,19 +197,22 @@ void Monom::getMonom() const
 	if (x)
 	{
 		cout << "x";
-		if (x != 1) cout << "^(" << x << ")";
+		//if (x != 1) cout << "^(" << x << ")";
+		if (x != 1) cout << "^" << x;
 	}
 
 	if (y)
 	{
 		cout << (x ? "*" : "") << "y";
-		if (y != 1) cout << "^(" << y << ")";
+		//if (y != 1) cout << "^(" << y << ")";
+		if (y != 1) cout << "^" << y;
 	}
 
 	if (z)
 	{
 		cout << (y ? "*" : "") << "z"; 
-		if (z != 1) cout << "^(" << z << ")";
+		//if (z != 1) cout << "^(" << z << ")";
+		if (z != 1) cout << "^" << z;
 	}
 }
 

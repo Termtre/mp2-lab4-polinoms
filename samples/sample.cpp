@@ -73,9 +73,9 @@ int main()
 
 	while (quit1)
 	{
-		Polynomial A, B;
 		try
 		{
+			Polynomial A, B;
 			quit2 = 1;
 			cout << "Введите первый полином(A)" << endl;
 			A.setPolynomial();
@@ -190,6 +190,9 @@ int main()
 				}
 				default:
 				{
+#ifdef _WIN64
+					SetConsoleTextAttribute(console_color, White);
+#endif
 					cout << "Повторите попытку" << endl;
 					break;
 				}}
@@ -202,7 +205,7 @@ int main()
 			shortLine();
 			cout << "Хотите выйти из программы?" << endl;
 			cout << "1) Выйти" << endl;
-			cout << "2) Продолжить" << endl;
+			cout << "2) Ввести новые полиномы" << endl;
 			cout << "Ваш выбор: ";
 			cin >> choice;
 

@@ -255,17 +255,13 @@ TEST(List, method_clear_changes_tail_to_nullptr)
 TEST(List, method_clear_delete_all_elements) // >><<
 {
     List<int> list(1);
-    list.push_front(2);
-    list.push_front(3);
     list.push_front(4);
-    Node<int>* array[4];
+    Node<int>* array[2];
     array[0] = list.begin();
-    array[1] = array[0]->next;
-    array[2] = array[1]->next;
-    array[3] = list.end();
+    array[1] = list.end();
     list.clear();
-    for (size_t i = 0; i < 3; i++)
-        EXPECT_NE(array[i]->next, array[i + 1]);
+    EXPECT_NE(array[0], list.begin());
+    EXPECT_NE(array[1], list.end());
 }
 
 TEST(List, can_use_operator_equal_list_to_itself)

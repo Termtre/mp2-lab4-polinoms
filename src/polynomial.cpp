@@ -70,11 +70,16 @@ void Polynomial::setPolynomial()
 
 	cout << "Введите количество мономов в полиноме: ";
 	cin >> size;
-
-	if (size < 0) throw "\"Polynomial::setPolynomial\": min size is 0";
+	if (size < 0)
+	{
+		string error = "\"Polynomial::setPolynomial\": min size is 0,\n";
+		error += " but it's " + to_string(size);
+		throw error;
+	}
 
 	for (size_t i = 0; i < size; i++)
 	{
+		cout << "Моном " << (i + 1) << endl;
 		cout << "Введите степень монома: ";
 		cin >> degree;
 

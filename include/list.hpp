@@ -329,7 +329,11 @@ public:
 
 	T pop_front()
 	{
-		if (this->isEmpty()) throw "\"List::pop_front\": list is empty";
+		if (this->isEmpty())
+		{
+			string error = "\"List::pop_front\": list is empty";
+			throw error;
+		}
 
 		T result = this->head->next->data;
 

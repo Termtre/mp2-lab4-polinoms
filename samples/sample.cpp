@@ -146,7 +146,7 @@ int main()
 					cout << "Выберите операцию: " << endl;
 					cout << "1) C = A * const" << endl;
 					cout << "2) C = B * const" << endl;
-					cout << "3) Повторить попытку" << endl;
+					cout << "3) Вернуться к выбору операций" << endl;
 					cout << "Ваш выбор: ";
 					cin >> choice;
 
@@ -219,7 +219,7 @@ int main()
 			}}
 		}
 
-		catch (const char* msg)
+		catch (const string msg)
 		{
 #ifdef _WIN64
 			SetConsoleTextAttribute(console_color, White);

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -45,5 +46,7 @@ struct Monom
 
 	void setMonom(int, double);						// Установка значения монома
 	
-	void getMonom();								// Вывод на экран монома
+	void getMonom() const;							// Вывод на экран монома
+
+	string stringMonom() const;						// Вернуть моном в качестве строки
 };

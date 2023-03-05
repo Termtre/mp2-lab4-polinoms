@@ -800,3 +800,57 @@ TEST(List, delete_tail_in_list_true)
     list.deleteNextNode(fast);
     EXPECT_NE(temp, list.end());
 }
+
+TEST(List, can_get_first_element_in_list)
+{
+    List<int> list(1);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    ASSERT_NO_THROW(list.pop_front());
+}
+
+TEST(List, first_element_in_list_true)
+{
+    List<int> list(1);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    EXPECT_EQ(1, list.pop_front());
+}
+
+TEST(List, getting_first_element_in_list_decrease_size_on_one)
+{
+    List<int> list(1);
+    list.push_back(2);
+    list.push_back(1);
+    list.push_back(0);
+    list.pop_front();
+    EXPECT_EQ(3, list.size());
+}
+
+TEST(List, can_get_first_element_in_list_with_one_element)
+{
+    List<int> list(1);
+    ASSERT_NO_THROW(list.pop_front());
+}
+
+TEST(List, first_element_in_list_with_one_element_true)
+{
+    List<int> list(1);
+    EXPECT_EQ(1, list.pop_front());
+}
+
+TEST(List, true_increase_after_getting_element_in_list_with_one_element)
+{
+    List<int> list(1);
+    list.pop_front();
+    list.push_back(3);
+    EXPECT_EQ(3, list.begin()->data);
+}
+
+TEST(List, throw_if_get_first_element_in_empty_list)
+{
+    List<int> list;
+    ASSERT_ANY_THROW(list.pop_front());
+}

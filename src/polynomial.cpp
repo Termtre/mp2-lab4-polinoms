@@ -9,7 +9,7 @@ Polynomial::Polynomial(const Polynomial& other) : tData(other.tData)
 
 Polynomial::Polynomial(const List<Monom>& other)
 {
-	if (other.isEmpty()) this->tData.push_back(Monom());
+	if (other.isEmpty());
 
 	else this->tData = other;
 }
@@ -39,7 +39,7 @@ void Polynomial::truePolynomial()
 	slow = tData.begin();
 	fast = slow->next;
 
-	while (fast)
+	while (fast) // Удаление первого элемента?
 	{
 		if (fabs(fast->data.coef) < 1e-15)
 		{
@@ -53,6 +53,8 @@ void Polynomial::truePolynomial()
 			fast = fast->next;
 		}
 	}
+
+	if (fabs(tData.begin()->data.coef) < 1e-15) tData.pop_front();
 }
 
 void Polynomial::setPolynomial()

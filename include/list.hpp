@@ -327,6 +327,31 @@ public:
 		}
 	}
 
+	T pop_front()
+	{
+		if (this->isEmpty()) throw "\"List::pop_front\": list is empty";
+
+		T result = this->head->next->data;
+
+		if (this->tsize == 1)
+		{
+			delete this->head->next;
+			this->tail = nullptr;
+			this->head->next = this->tail;
+		}
+
+		else
+		{
+			Node<T>* temp = this->head->next->next;
+			delete this->head->next;
+			this->head->next = temp;
+		}
+
+		tsize--;
+
+		return result;
+	}
+
 	friend ostream& operator <<(ostream& ostr, const List& other)
 	{
 		Node<T>* temp = other.begin();

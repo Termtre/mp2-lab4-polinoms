@@ -39,5 +39,5 @@ public:
 
 	void setPolynomial();								// Ввести полином
 
-	void getPolynomial();								// Вывести полином на экран // for Monom
+	void getPolynomial();								// Вывести полином на экран
 };

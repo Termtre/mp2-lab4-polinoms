@@ -14,6 +14,11 @@ Polynomial::Polynomial(const List<Monom>& other)
 	else this->tData = other;
 }
 
+Polynomial::Polynomial(const Monom& monom)
+{
+	this->tData.push_back(monom);
+}
+
 void Polynomial::truePolynomial()
 {
 	if (tData.isEmpty()) return;

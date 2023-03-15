@@ -312,16 +312,16 @@ TEST(Monom, two_monoms_not_equal)
     EXPECT_EQ(true, a != b);
 }
 
-TEST(Monom, can_use_method_setMonom)
+TEST(Monom, can_convert_monom_to_string)
 {
-    Monom a;
-    ASSERT_NO_THROW(a.setMonom(2, 2.5));
+    Monom a(3, 2.5);
+    ASSERT_NO_THROW(a.stringMonom());
 }
 
-TEST(Monom, method_setMonom_install_true_data)
+TEST(Monom, true_convert_monom_to_string)
 {
-    Monom a;
-    a.setMonom(2, 2.5);
-    EXPECT_EQ(2, a.degree);
-    EXPECT_EQ(2.5, a.coef);
+    Monom a(3, 2.5);
+    EXPECT_EQ("2.500000z^3", a.stringMonom());
+    a = Monom(476, 1.0);
+    EXPECT_EQ("x^4*y^7*z^6", a.stringMonom());
 }

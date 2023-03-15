@@ -12,32 +12,32 @@ class Polynomial
 private:
 	List<Monom> tData;
 public:
-	Polynomial();										// Конструктор по умолчанию		
+	Polynomial();                                       // Конструктор по умолчанию		
 													
-	Polynomial(const List<Monom>&);						// Конструктор инициализации списком
+	Polynomial(const List<Monom>&);                     // Конструктор инициализации списком
 
-	Polynomial(const Monom&);							// Конструктор инициализации мономом
+	Polynomial(const Monom&);                           // Конструктор инициализации мономом
 
-	Polynomial(const Polynomial&);						// Конструктор копирования
+	Polynomial(const Polynomial&);                      // Конструктор копирования
 
-	const Polynomial& operator =(const Polynomial&);	// оператор =
+	const Polynomial& operator =(const Polynomial&);    // оператор =
 
-	Polynomial operator +(const Polynomial&) const;		// оператор +
+	Polynomial operator +(const Polynomial&) const;     // оператор +
 
-	Polynomial operator *(const Monom&) const;			// Умножение на моном
+	Polynomial operator *(const Monom&) const;          // Умножение на моном
 
-	Polynomial operator *(const double&) const;			// оператор * на const
+	Polynomial operator *(const double&) const;         // оператор * на const
 
-	Polynomial operator *=(const double&);				// оператор *= на const
+	Polynomial operator *=(const double&);              // оператор *= на const
 
-	Polynomial operator -(const Polynomial&) const;		// оператор -
+	Polynomial operator -(const Polynomial&) const;     // оператор -
 
-	Polynomial operator *(const Polynomial&) const;		// Оператор *
+	Polynomial operator *(const Polynomial&) const;     // Оператор *
 
-	void truePolynomial();								// Удаляет мономы с нулевыми коэффициентами 
-														// или складывает мономы с одинаковыми степенями
+	void truePolynomial();                              // Удаляет мономы с нулевыми коэффициентами 
+                                                        // или складывает мономы с одинаковыми степенями
 
-	void setPolynomial();								// Ввести полином
+	void setPolynomial();                               // Ввести полином
 
-	void getPolynomial();								// Вывести полином на экран
+	void getPolynomial();                               // Вывести полином на экран
 };

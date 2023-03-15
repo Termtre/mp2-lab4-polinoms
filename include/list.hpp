@@ -10,57 +10,38 @@ struct Node
 	T data;
 	Node<T>* next;
 
-	Node() : data(T()), next(nullptr) {}						// Конструктор по умолчанию
+	Node() : data(T()), next(nullptr) {}
 
-	Node(T var) : data(static_cast<T>(var)), next(nullptr) {}	// Конструктор инициализации
+	Node(T var) : data(static_cast<T>(var)), next(nullptr) {}
 };
 
 template<class T>
-class List														// Класс односвязный список с фиктивной головой
+class List
 {
 private:
 	Node<T>* head;
-	Node<T>* tail;
 	size_t tsize;
-public:
-	List() : head(new Node<T>()), tsize(size_t(0)), tail(nullptr)
-	{
-		head->next = tail;
-	}
 
-	List(T var) : head(new Node<T>()), tsize(size_t(1)), tail(new Node<T>(static_cast<T>(var)))
+public:
+
+	List() : head(new Node<T>()), tsize(size_t(0))
+	{}
+
+	List(T var) : head(new Node<T>()), tsize(size_t(1))
 	{
-		head->next = tail;
+		head->next = new Node<T>(var);
 	}
 
 	List(const List& other) : head(new Node<T>()), tsize(other.tsize)
 	{
-		if (other.isEmpty())
+		Node<T>* o = other.head->next;
+		Node<T>* t = this->head;
+
+		while (o)
 		{
-			this->tail = nullptr;
-			this->head->next = this->tail;
-		}
-
-		else if (other.tsize == 1)
-		{
-			this->tail = new Node<T>(other.head->next->data);
-			this->head->next = this->tail;
-		}
-
-		else
-		{
-			Node<T>* o = other.head->next;
-			Node<T>* t = this->head;
-
-			while (o->next)
-			{
-				t->next = new Node<T>(o->data);
-				t = t->next;
-				o = o->next;
-			}
-
-			this->tail = new Node<T>(o->data);
-			t->next = tail;
+			t->next = new Node<T>(o->data);
+			t = t->next;
+			o = o->next;
 		}
 	}
 
@@ -77,99 +58,67 @@ public:
 		return head->next;
 	}
 
-	Node<T>* end() const
-	{
-		return tail;
-	}
-
 	bool isEmpty() const
 	{
-		return tail == nullptr;
+		return head->next == nullptr;
 	}
 
-	size_t size()
+	size_t size() const
 	{
 		return tsize;
 	}
 
-	void push_front(T var)
+	void push(T var)
 	{
 		if (isEmpty())
-		{
-			tail = new Node<T>(static_cast<T>(var));
-			head->next = tail;
+		{ 
+			head->next = new Node<T>(var);
 		}
 
 		else
 		{
-			Node<T>* temp = head->next;
-			head->next = new Node<T>(static_cast<T>(var));
-			head->next->next = temp;
-		}
+			Node<T>* temp = head;
 
-		tsize++;
-	}
-
-	void push_back(T var)
-	{
-		if (isEmpty())
-		{
-			tail = new Node<T>(static_cast<T>(var));
-			head->next = tail;
-		}
-
-		else
-		{
-			tail->next = new Node<T>(static_cast<T>(var));
-			tail = tail->next;
-		}
-
-		tsize++;
-	}
-
-	bool find(Node<T>* cur) const
-	{
-		if (isEmpty()) return cur == nullptr;
-
-		else if (this->tsize == 1) return tail == cur;
-
-		else
-		{
-			Node<T>* temp = head->next;
-
-			while (temp)
+			while (temp->next && temp->next->data < var)
 			{
-				if (temp == cur) return true;
 				temp = temp->next;
 			}
 
-			return false;
+			if (temp->next == nullptr)
+			{
+				temp->next = new Node<T>(var);
+			}
+
+			else
+			{
+				Node<T>* cont = temp->next;
+				temp->next = new Node<T>(var);
+				temp->next->next = cont;
+			}
 		}
+
+		tsize++;
 	}
 
-	void deleteNextNode(Node<T>* node)
+	void deleteNode(Node<T>* node)
 	{
-		if (!find(node) || tsize == 1 || isEmpty() || node == tail) return;
-
-		if (node->next == tail)
+		if (!isEmpty())
 		{
-			Node<T>* temp = node;
-			delete tail;
-			tail = temp;
-			tail->next = nullptr;
-		}
+			Node<T>* temp = head;
 
-		else
-		{
-			Node<T>* temp;
-			Node<T>* cur = node;
-			temp = cur;
-			cur = cur->next;
-			temp->next = cur->next;
-			delete cur;
-		}
+			while (temp && temp->next != node)
+			{
+				temp = temp->next;
+			}
 
-		tsize--;
+			if (temp)
+			{
+				Node<T>* cont = node->next;
+				delete temp->next;
+				temp->next = cont;
+				tsize--;
+			}
+		}
 	}
 
 	void clear()
@@ -186,19 +135,19 @@ public:
 				delete temp;
 			}
 
-			tail = nullptr;
-			head->next = tail;
+			head->next = nullptr;
 			tsize = size_t(0);
 		}
 	}
 
-	bool operator ==(const List& other) const
+	bool operator ==(const List& other) const 
 	{
 		if (this->tsize == other.tsize)
 		{
-			if (this->isEmpty()) return true;
-
-			else if (this->tsize == 1) return this->head->next->data == other.head->next->data;
+			if (this->isEmpty())
+			{
+				return true;
+			}
 
 			else
 			{
@@ -224,49 +173,21 @@ public:
 		return !(*this == other);
 	}
 
-	const List& operator =(const List& other) // ???
+	const List& operator =(const List& other)
 	{
 		if (*this != other)
 		{	
-			if (this->tsize == other.tsize)
+			this->clear();
+
+			Node<T>* o = other.head->next;
+			Node<T>* t = this->head;
+
+			while (o)
 			{
-				if (this->tsize == 1) head->next->data = other.head->next->data;
-
-				else
-				{
-					Node<T>* t = this->head->next;
-					Node<T>* o = other.head->next;
-
-					while (o)
-					{
-						t->data = o->data;
-						t = t->next;
-						o = o->next;
-					}
-				}
-			}
-
-			else
-			{
-				this->clear();
-
-				if (other.isEmpty());
-
-				else if (other.tsize == 1)
-				{
-					this->push_back(other.head->next->data);
-				}
-
-				else
-				{
-					Node<T>* temp = other.head->next;
-
-					while (temp)
-					{
-						this->push_back(temp->data);
-						temp = temp->next;
-					}
-				}
+				t->next = new Node<T>(o->data);
+				this->tsize++;
+				o = o->next;
+				t = t->next;
 			}
 		}
 
@@ -277,83 +198,30 @@ public:
 	{
 		if (other.isEmpty()) return;
 
+		List<T> third;
 		Node<T>* t = this->head->next;
 		Node<T>* o = other.head->next;
-		List<T> third;
+		Node<T>* th = third.head;
 
 		while (t || o)
 		{
 			if (t && ((o == nullptr) || (t->data <= o->data)))
 			{
-				third.push_back(t->data);
+				th->next = new Node<T>(t->data);
 				t = t->next;
 			}
 
 			else
 			{
-				third.push_back(o->data);
+				th->next = new Node<T>(o->data);
 				o = o->next;
 			}
+
+			th = th->next;
+			third.tsize++;
 		}
 
 		*this = third;
-	}
-
-	void splice(List& one, List& second) const
-	{
-		if (!one.isEmpty()) one.clear();
-		if (!second.isEmpty()) second.clear();
-
-		Node<T>* temp = this->begin();
-		int middle = this->tsize != 1 ? (static_cast<int>(this->tsize) / 2) : 1;
-
-		for (int i = 0; i < middle; i++, temp = temp->next)
-			one.push_back(temp->data);
-
-		for (int i = middle; i < this->tsize; i++, temp = temp->next)
-			second.push_back(temp->data);
-	}
-
-	void sort()
-	{
-		if (!this->isEmpty() && this->tsize != 1)
-		{
-			List<T> left, right;
-			this->splice(left, right);
-			left.sort();
-			right.sort();
-			left.merge(right);
-			*this = left;
-		}
-	}
-
-	T pop_front()
-	{
-		if (this->isEmpty())
-		{
-			string error = "\"List::pop_front\": list is empty";
-			throw error;
-		}
-
-		T result = this->head->next->data;
-
-		if (this->tsize == 1)
-		{
-			delete this->head->next;
-			this->tail = nullptr;
-			this->head->next = this->tail;
-		}
-
-		else
-		{
-			Node<T>* temp = this->head->next->next;
-			delete this->head->next;
-			this->head->next = temp;
-		}
-
-		tsize--;
-
-		return result;
 	}
 
 	friend ostream& operator <<(ostream& ostr, const List& other)

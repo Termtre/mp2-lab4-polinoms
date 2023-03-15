@@ -16,50 +16,44 @@ Polynomial::Polynomial(const List<Monom>& other)
 
 Polynomial::Polynomial(const Monom& monom)
 {
-	this->tData.push_back(monom);
+	this->tData.push(monom);
 }
 
 void Polynomial::truePolynomial()
 {
 	if (tData.isEmpty()) return;
-	Node<Monom>* slow = tData.begin();
-	Node<Monom>* fast = slow->next;
-	
-	while (fast)
+	Node<Monom>* temp = tData.begin();
+
+	while (temp->next)
 	{
-		if (slow->data.degree == fast->data.degree)
+		if (temp->data.degree == temp->next->data.degree)
 		{
-			slow->data += fast->data;
-			tData.deleteNextNode(slow);
-			fast = slow->next;
+			temp->data += temp->next->data;
+			tData.deleteNode(temp->next);
 		}
 
 		else
 		{
-			fast = fast->next;
-			slow = slow->next;
+			temp = temp->next;
 		}
 	}
 
-	slow = tData.begin();
-	fast = slow->next;
+	temp = tData.begin();
 
-	while (fast) // Удаление первого элемента?
+	while (temp)
 	{
-		if (fabs(fast->data.coef) < 1e-15)
+		if (fabs(temp->data.coef) < 1e-15)
 		{
-			tData.deleteNextNode(slow);
-			fast = slow->next;
+			Node<Monom>* cont = temp;
+			temp = temp->next;
+			tData.deleteNode(cont);
 		}
 
 		else
 		{
-			slow = slow->next;
-			fast = fast->next;
+			temp = temp->next;
 		}
 	}
-
-	if (fabs(tData.begin()->data.coef) < 1e-15) tData.pop_front();
 }
 
 void Polynomial::setPolynomial()
@@ -86,10 +80,10 @@ void Polynomial::setPolynomial()
 		cout << "Введите коэффициент монома: ";
 		cin >> coef;
 
-		tData.push_back(Monom(degree, coef));
+		if (fabs(coef) < 1e-15) continue;
+		tData.push(Monom(degree, coef));
 	}
 
-	tData.sort();
 	this->truePolynomial();
 }
 
@@ -104,7 +98,7 @@ void Polynomial::getPolynomial()
 		for (size_t i = 0; i < tData.size(); i++, temp = temp->next)
 		{
 			if ((i != 0) && temp->data.coef > 0) cout << "+";
-			temp->data.getMonom();
+			cout << temp->data.stringMonom();
 		}
 	}
 

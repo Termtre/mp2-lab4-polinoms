@@ -1,10 +1,6 @@
 ﻿#include "polynomial.h"
 #include <locale.h>
 
-#ifdef _WIN64
-#include <windows.h>
-#endif
-
 enum Choice 
 { 
 	A_plus_B = 1, 
@@ -17,23 +13,6 @@ enum Choice
 	A_mult_Const = 1, 
 	B_mult_Const =2,
 };
-
-enum Colors 
-{ 
-	Black = 0,
-	Blue = 1,
-	Green,
-	LightBlue,
-	Red,
-	White = 7,
-	UltraGreen = 10,
-	Coral = 12,
-	UltraWhite = 15
-};
-
-#ifdef _WIN64
-HANDLE console_color = GetStdHandle(STD_OUTPUT_HANDLE);
-#endif
 
 void shortLine()
 {
@@ -52,20 +31,14 @@ int main()
 	cout << "Правила пользования: " << endl;
 	cout << "1) Сначала вы должны ввести количество мономов в полиноме" << endl;
 	cout << "2) Дальше для каждого монома вводится его степень" << endl;
-#ifdef _WIN64
-	SetConsoleTextAttribute(console_color, Coral);
-#endif
-	cout << "   !!!Заметьте: " << endl;
-	cout << "   Количество сотен отвечает за степень у 'x'" << endl;
-	cout << "   Количество десятков - степень 'y'" << endl;
-	cout << "   Количество единиц - степень z" << endl;
-	cout << "   Максимальная степень - 999!!!" << endl;
-#ifdef _WIN64
-	SetConsoleTextAttribute(console_color, White);
-#endif
 	cout << "3) Введите коэффициент монома" << endl;
 	cout << "4) Повторяйте шаги 2) и 3) до тех пор, пока не появится меню выбора операций" << endl;
 	cout << "5) Выберите операцию над мономами" << endl;
+	cout << "!!!Заметьте: " << endl;
+	cout << "Количество сотен отвечает за степень у 'x'" << endl;
+	cout << "Количество десятков - степень 'y'" << endl;
+	cout << "Количество единиц - степень z" << endl;
+	cout << "Максимальная степень - 999!!!" << endl;
 	
 	longLine();
 
@@ -98,11 +71,6 @@ int main()
 				cout << "Ваш выбор: ";
 				cin >> choice;
 				shortLine();
-				
-#ifdef _WIN64
-				SetConsoleTextAttribute(console_color, Green);
-#endif
-
 				cout << "Полином А: ";
 				A.getPolynomial();
 				cout << "Полином B: ";
@@ -111,33 +79,30 @@ int main()
 				switch (choice) {
 				case Choice::A_plus_B:
 				{
-					cout << "C = A + B: ";
+					cout << "Полином C = A + B: ";
 					(A + B).getPolynomial();
 					break;
 				}
 				case Choice::A_minus_B:
 				{
-					cout << "C = A - B: ";
+					cout << "Полином C = A - B: ";
 					(A - B).getPolynomial();
 					break;
 				}
 				case Choice::B_minus_A:
 				{
-					cout << "C = B - A: ";
+					cout << "Полином C = B - A: ";
 					(B - A).getPolynomial();
 					break;
 				}
 				case Choice::A_mult_B:
 				{
-					cout << "C = A * B: ";
+					cout << "Полином C = A * B: ";
 					(A * B).getPolynomial();
 					break;
 				}
 				case Choice::Const_mult:
 				{
-#ifdef _WIN64
-					SetConsoleTextAttribute(console_color, White);
-#endif
 					double var;
 
 					cout << "Введите константу: ";
@@ -152,21 +117,17 @@ int main()
 
 					shortLine();
 
-#ifdef _WIN64
-					SetConsoleTextAttribute(console_color, Green);
-#endif
-
 					switch (choice) {
 					case Choice::A_mult_Const:
 					{
-						cout << "C = A * const: ";
+						cout << "Полином C = A * const: ";
 						(A * var).getPolynomial();
 						break;
 					}
 
 					case Choice::B_mult_Const:
 					{
-						cout << "C = B * const: ";
+						cout << "Полином C = B * const: ";
 						(A * var).getPolynomial();
 						break;
 					}
@@ -175,10 +136,6 @@ int main()
 					{
 						break;
 					}}
-					
-#ifdef _WIN64
-					SetConsoleTextAttribute(console_color, White);
-#endif
 
 					break;
 				}
@@ -190,16 +147,9 @@ int main()
 				}
 				default:
 				{
-#ifdef _WIN64
-					SetConsoleTextAttribute(console_color, White);
-#endif
 					cout << "Повторите попытку" << endl;
 					break;
 				}}
-
-#ifdef _WIN64
-				SetConsoleTextAttribute(console_color, White);
-#endif
 			}
 
 			shortLine();
@@ -224,18 +174,9 @@ int main()
 
 		catch (const string msg)
 		{
-#ifdef _WIN64
-			SetConsoleTextAttribute(console_color, White);
-#endif
 			cout << endl;
 			shortLine();
-#ifdef _WIN64
-			SetConsoleTextAttribute(console_color, Red);
-#endif
 			cout << msg << endl;
-#ifdef _WIN64
-			SetConsoleTextAttribute(console_color, White);
-#endif
 			shortLine();
 		}
 	}

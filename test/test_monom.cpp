@@ -323,5 +323,5 @@ TEST(Monom, true_convert_monom_to_string)
     Monom a(3, 2.5);
     EXPECT_EQ("2.500000z^3", a.stringMonom());
     a = Monom(476, 1.0);
-    EXPECT_EQ("x^4*y^7*z^6", a.stringMonom());
+    EXPECT_EQ("x^4y^7z^6", a.stringMonom());
 }

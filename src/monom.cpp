@@ -1,22 +1,21 @@
 #include "monom.h"
 
 // Monom
-Monom::Monom() : degree(int(0)), coef(double(0))
+Monom::Monom() : degree(0), coef(0.0)
 {}
 
 Monom::Monom(int var, double dvar) : degree(int(var)), coef(double(dvar))
 {
-	if (degree < 0 || degree > max_degree)
+	if (degree < 0 || degree > 999)
 	{
-		string error = "\"Monom::Monom\": min monom degree is 0 and max one is ";
-		error += to_string(max_degree);
+		string error = "\"Monom::Monom\": min monom degree is 0 and max one is 999";
 		error += ", \n but it's ";
 		error += to_string(degree);
 		throw error;
 	};
 }
 
-Monom::Monom(double dvar) : degree(int(0)), coef(double(dvar))
+Monom::Monom(double dvar) : degree(0), coef(dvar)
 {}
 
 Monom::Monom(const Monom& other)
@@ -89,7 +88,7 @@ Monom Monom::operator *(const Monom& other) const
 	zo = other.degree % 10;
 	int px = x + xo, py = y + yo, pz = z + zo;
 
-	if (px > ((max_degree / 100) % 10) || py > ((max_degree / 10) % 10) || pz > (max_degree % 10))
+	if (px > 9 || py > 9 || pz > 9)
 	{
 		string error = "\"Monom::operator*\": max monom degree by variable is 9,\n";
 		error += "but if ";
@@ -99,7 +98,7 @@ Monom Monom::operator *(const Monom& other) const
 		error += " : ";
 		if (px > 9) error += "x degree = " + to_string(px) + "; ";
 		if (py > 9) error += "y degree = " + to_string(py) + "; ";
-		if (pz > 9) error += "z degree = " + to_string(pz) + "; ";
+		if (pz > 9) error += "z degree = " + to_string(pz) + ";";
 		throw error;
 	}
 
@@ -121,7 +120,7 @@ Monom Monom::operator *=(const Monom& other)
 	zo = other.degree % 10;
 	int px = x + xo, py = y + yo, pz = z + zo;
 
-	if (px > ((max_degree / 100) % 10) || py > ((max_degree / 10) % 10) || pz > (max_degree % 10))
+	if (px > 9 || py > 9 || pz > 9)
 	{
 		string error = "\"Monom::operator*=\": max monom degree by variable is 9,\n";
 		error += "but if ";
@@ -131,7 +130,7 @@ Monom Monom::operator *=(const Monom& other)
 		error += " : ";
 		if (px > 9) error += "x degree = " + to_string(px) + "; ";
 		if (py > 9) error += "y degree = " + to_string(py) + "; ";
-		if (pz > 9) error += "z degree = " + to_string(pz) + "; ";
+		if (pz > 9) error += "z degree = " + to_string(pz) + ";";
 		throw error;
 	}
 
@@ -200,14 +199,12 @@ string Monom::stringMonom() const
 
 	if (y)
 	{
-		result += (x ? "*" : "");
 		result += "y";
 		if (y != 1) result += "^" + to_string(y);
 	}
 
 	if (z)
 	{
-		result += (y ? "*" : "");
 		result += "z";
 		if (z != 1) result += "^" + to_string(z);
 	}

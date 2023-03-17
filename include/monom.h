@@ -7,7 +7,6 @@ using namespace std;
 
 struct Monom
 {
-	const int max_degree = 999;
 	int degree;
 	double coef;
 

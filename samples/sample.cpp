@@ -50,6 +50,7 @@ int main()
 		{
 			Polynomial A, B;
 			quit2 = 1;
+
 			cout << "Введите первый полином(A)" << endl;
 			A.setPolynomial();
 

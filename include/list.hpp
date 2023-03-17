@@ -27,7 +27,7 @@ public:
 	List() : head(new Node<T>()), tsize(size_t(0))
 	{}
 
-	List(T var) : head(new Node<T>()), tsize(size_t(1))
+	List(const T& var) : head(new Node<T>()), tsize(size_t(1))
 	{
 		head->next = new Node<T>(var);
 	}
@@ -68,7 +68,7 @@ public:
 		return tsize;
 	}
 
-	void push(T var)
+	void push(const T& var)
 	{
 		if (isEmpty())
 		{ 

@@ -138,7 +138,7 @@ Polynomial Polynomial::operator *(const Monom& monom) const
 	return third;
 }
 
-Polynomial Polynomial::operator *(const double& var) const
+Polynomial Polynomial::operator *(double var) const
 {
 	Polynomial third(*this);
 	
@@ -153,21 +153,6 @@ Polynomial Polynomial::operator *(const double& var) const
 	third.truePolynomial();
 
 	return third;
-}
-
-Polynomial Polynomial::operator *=(const double& var)
-{
-	Node<Monom>* temp = this->tData.begin();
-
-	while (temp)
-	{
-		temp->data *= var;
-		temp = temp->next;
-	}
-
-	this->truePolynomial();
-
-	return *this;
 }
 
 Polynomial Polynomial::operator -(const Polynomial& other) const

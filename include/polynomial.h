@@ -26,9 +26,9 @@ public:
 
 	Polynomial operator *(const Monom&) const;          // Умножение на моном
 
-	Polynomial operator *(const double&) const;         // оператор * на const
+	Polynomial operator *(double) const;         // оператор * на const
 
-	Polynomial operator *=(const double&);              // оператор *= на const
+	Polynomial& operator *=(double);              // оператор *= на const
 
 	Polynomial operator -(const Polynomial&) const;     // оператор -
 
@@ -36,7 +36,6 @@ public:
 
 	void truePolynomial();                              // Удаляет мономы с нулевыми коэффициентами 
                                                         // или складывает мономы с одинаковыми степенями
-
 	void setPolynomial();                               // Ввести полином
 
 	void getPolynomial();                               // Вывести полином на экран

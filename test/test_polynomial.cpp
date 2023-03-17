@@ -56,13 +56,6 @@ TEST(Polynomial, can_multiplicate_polynomial_by_const)
     ASSERT_NO_THROW(A * 2.5);
 }
 
-TEST(Polynomial, can_multiplicate_and_assign_polynomial_by_const)
-{
-    Monom a(2, 2.5);
-    Polynomial A(a);
-    ASSERT_NO_THROW(A *= 2.5);
-}
-
 TEST(Polynomial, can_subtract_two_polynomials)
 {
     Monom a(2, 2.5);

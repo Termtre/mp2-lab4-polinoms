@@ -129,7 +129,7 @@ int main()
 					case Choice::B_mult_Const:
 					{
 						cout << "Полином C = B * const: ";
-						(A * var).getPolynomial();
+						(B * var).getPolynomial();
 						break;
 					}
 

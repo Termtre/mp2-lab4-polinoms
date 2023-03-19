@@ -97,7 +97,7 @@ void Polynomial::getPolynomial()
 
 		for (size_t i = 0; i < tData.size(); i++, temp = temp->next)
 		{
-			if ((i != 0) && temp->data.coef > 0) cout << "+";
+			if ((i != 0) && temp->data.coef > 0) cout << " + ";
 			cout << temp->data.stringMonom();
 		}
 	}

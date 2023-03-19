@@ -26,9 +26,7 @@ public:
 
 	Polynomial operator *(const Monom&) const;          // Умножение на моном
 
-	Polynomial operator *(double) const;         // оператор * на const
-
-	Polynomial& operator *=(double);              // оператор *= на const
+	Polynomial operator *(double) const;                // оператор * на const
 
 	Polynomial operator -(const Polynomial&) const;     // оператор -
 

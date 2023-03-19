@@ -108,7 +108,7 @@ Monom Monom::operator *(const Monom& other) const
 	return third;
 }
 
-Monom Monom::operator *=(const Monom& other)
+Monom& Monom::operator *=(const Monom& other)
 {
 	int x, y, z, xo, yo, zo;
 
@@ -139,7 +139,7 @@ Monom Monom::operator *=(const Monom& other)
 	return *this;
 }
 
-Monom Monom::operator *=(const double& temp)
+Monom& Monom::operator *=(double temp)
 {
 	this->coef *= temp;
 	return *this;
@@ -189,7 +189,7 @@ string Monom::stringMonom() const
 	y = (this->degree / 10) % 10;
 	z = this->degree % 10;
 
-	if (coef != 1.0) result += to_string(this->coef);
+	if (this->degree == 0 || this->coef != 1.0) result += to_string(this->coef);
 
 	if (x)
 	{

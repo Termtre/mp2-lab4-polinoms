@@ -4,7 +4,7 @@
 Monom::Monom() : degree(0), coef(0.0)
 {}
 
-Monom::Monom(int var, double dvar) : degree(int(var)), coef(double(dvar))
+Monom::Monom(int var, double dvar) : degree(var), coef(dvar)
 {
 	if (degree < 0 || degree > 999)
 	{

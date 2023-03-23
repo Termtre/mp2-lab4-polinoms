@@ -24,10 +24,10 @@ private:
 
 public:
 
-	List() : head(new Node<T>()), tsize(size_t(0))
+	List() : head(new Node<T>()), tsize(0)
 	{}
 
-	List(const T& var) : head(new Node<T>()), tsize(size_t(1))
+	List(const T& var) : head(new Node<T>()), tsize(1)
 	{
 		head->next = new Node<T>(var);
 	}
